@@ -10,4 +10,5 @@
     <string name="emailreg">E-mail</string>
     <string name="confirmpass">Confirm Password</string>
     <string name="confirmpasstxt">Confirm Password</string>
+    <string name="termofService">I agree to the Tems of Services and Privacy Policy.</string>
 </resources>

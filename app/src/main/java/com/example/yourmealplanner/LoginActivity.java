@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText emailInput;
     EditText passwordInput;
     TextView txtGuest;
+    CheckBox checkBox;
     private SharedPreferences preferences;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,6 +33,8 @@ public class LoginActivity extends AppCompatActivity {
         emailInput =  findViewById(R.id.emailInput);
         passwordInput =  findViewById(R.id.passwordInput);
         txtGuest = findViewById(R.id.txtGuest);
+        checkBox =  findViewById(R.id.checkBox);
+
 
 
         preferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
@@ -46,6 +50,11 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
+
+                if (!checkBox.isChecked()) {
+                    Toast.makeText(LoginActivity.this, "You must agree to the terms and conditions", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 String inputEmail = emailInput.getText().toString().trim();
                 String inputPassword = passwordInput.getText().toString().trim();
 
