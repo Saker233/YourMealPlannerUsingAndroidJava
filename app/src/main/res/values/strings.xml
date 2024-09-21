@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">YourMealPlanner</string>
+    <string name="welcomeLogin">Welcome! Please Login or Register</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="emailInput">Email Input</string>
+    <string name="enter_your_email">Enter your email</string>
+    <string name="enter_your_password">Enter your Password</string>
+</resources>
