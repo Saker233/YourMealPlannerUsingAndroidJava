@@ -81,11 +81,27 @@
         app:srcCompat="@drawable/loginicon" />
 
     <ImageButton
-        android:id="@+id/imageButton4"
-        android:layout_width="370dp"
-        android:layout_height="63dp"
-        app:srcCompat="@drawable/registerbutton"
-        tools:layout_editor_absoluteX="19dp"
-        tools:layout_editor_absoluteY="611dp" />
+        android:id="@+id/btnRegister"
+        android:layout_width="235dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin"
+        app:srcCompat="@drawable/registerbtn" />
+
+    <TextView
+        android:id="@+id/txtGuest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="@string/continueguest"
+        android:textColor="#FF0000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnRegister" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

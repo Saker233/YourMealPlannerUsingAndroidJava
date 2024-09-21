@@ -6,4 +6,8 @@
     <string name="emailInput">Email Input</string>
     <string name="enter_your_email">Enter your email</string>
     <string name="enter_your_password">Enter your Password</string>
+    <string name="continueguest">Continue as a Guest?</string>
+    <string name="emailreg">E-mail</string>
+    <string name="confirmpass">Confirm Password</string>
+    <string name="confirmpasstxt">Confirm Password</string>
 </resources>
