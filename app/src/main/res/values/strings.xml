@@ -11,4 +11,8 @@
     <string name="confirmpass">Confirm Password</string>
     <string name="confirmpasstxt">Confirm Password</string>
     <string name="termofService">I agree to the Tems of Services and Privacy Policy.</string>
+    <string name="home">Home</string>
+    <string name="search">Search</string>
+    <string name="profile">Profile</string>
+    <string name="favorite">Favorite</string>
 </resources>
