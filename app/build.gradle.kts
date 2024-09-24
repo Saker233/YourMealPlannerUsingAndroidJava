@@ -14,6 +14,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+
     }
 
     buildTypes {
@@ -32,20 +34,38 @@ android {
 }
 
 dependencies {
+
+//    def nav_version = "2.3+"
+
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation ("com.github.bumptech.glide:glide:4.15.1")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
-    implementation ("com.google.android.material:material:1.9.0")
-    implementation ("androidx.navigation:navigation-fragment-ktx:2.7.3")
-    implementation ("androidx.navigation:navigation-ui-ktx:2.7.3")
+    implementation ("com.google.android.material:material:1.11.0")
     implementation("androidx.room:room-runtime:2.6.1")
     annotationProcessor("androidx.room:room-compiler:2.6.1")
-    implementation(libs.appcompat)
-    implementation(libs.material)
-    implementation(libs.activity)
-    implementation(libs.constraintlayout)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.ext.junit)
-    androidTestImplementation(libs.espresso.core)
+
+    // Lottie dependency
+    implementation ("com.airbnb.android:lottie:4.2.2")
+
+    // Include GIF drawable if needed
+    implementation ("com.github.bumptech.glide:okhttp3-integration:4.15.1")
+    implementation ("com.github.bumptech.glide:glide:4.15.1")
+
+    // Firebase Firestore
+    implementation ("com.google.firebase:firebase-firestore:24.3.0")
+
+    // Navigation components
+//    implementation ("androidx.navigation:navigation-fragment:2.8.1")
+//    implementation ("androidx.navigation:navigation-ui:2.8.1")
+
+    implementation ("androidx.navigation:navigation-fragment:2.3+")
+    implementation ("androidx.navigation:navigation-ui:2.3+")
+
+    implementation (libs.appcompat)
+    implementation (libs.activity)
+    implementation (libs.constraintlayout)
+    testImplementation (libs.junit)
+    androidTestImplementation (libs.ext.junit)
+    androidTestImplementation (libs.espresso.core)
 }

@@ -15,4 +15,7 @@
     <string name="search">Search</string>
     <string name="profile">Profile</string>
     <string name="favorite">Favorite</string>
+    <string name="Insiperation">Don\'t Know What To Eat? Here\'s an Inspiration</string>
+    <string name="MealOfTheDay">Meal of the Day</string>
+    <string name="Inspiration">Inspiration</string>
 </resources>
