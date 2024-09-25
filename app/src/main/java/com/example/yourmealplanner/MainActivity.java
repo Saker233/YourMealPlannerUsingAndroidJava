@@ -2,19 +2,19 @@ package com.example.yourmealplanner;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
-import androidx.fragment.app.FragmentContainerView;
 
-import com.example.yourmealplanner.Home.HomeFragment;
+import com.example.yourmealplanner.Home.model.Category;
+import com.example.yourmealplanner.Home.model.CategoryClient;
+import com.example.yourmealplanner.Home.model.Meal;
+import com.example.yourmealplanner.Network.NetworkCallback;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
@@ -25,11 +25,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.d("MainActivity", "onCreate: Setting content view");
         setContentView(R.layout.activity_main);
-        Log.d("MainActivity", "Layout set, checking for NavHostFragment...");
 
+        // Initialize BottomNavigationView
         bottomNavigationView = findViewById(R.id.bottom_navigation);
+        Log.d("MainActivity", "BottomNavigationView initialized");
 
-        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+        // Initialize NavHostFragment and NavController
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.nav_host_fragment);
 
         if (navHostFragment != null) {
             Log.d("MainActivity", "NavHostFragment found, setting up NavController");
@@ -37,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
             // Set up BottomNavigationView with NavController
             NavigationUI.setupWithNavController(bottomNavigationView, navController);
+            Log.d("MainActivity", "NavController set up with BottomNavigationView");
         } else {
             Log.e("MainActivity", "NavHostFragment is null. Cannot set up NavController.");
         }
@@ -44,8 +48,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-
-
-
 }
+
+
+
+

@@ -18,4 +18,11 @@
     <string name="Insiperation">Don\'t Know What To Eat? Here\'s an Inspiration</string>
     <string name="MealOfTheDay">Meal of the Day</string>
     <string name="Inspiration">Inspiration</string>
+    <string name="dailyInspiration">"Daily Updated Inspiration "</string>
+    <string name="categoriesrtxt">Food Categories</string>
+    <string name="addtoFav">Add To Favorits</string>
+    <string name="addtoweek">Add To Week Plan</string>
+    <string name="Ingredients">Ingredients</string>
+    <string name="viewdetails">"View Details "</string>
+    <string name="catName">Category Name</string>
 </resources>
