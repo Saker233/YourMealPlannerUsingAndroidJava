@@ -25,6 +25,7 @@ public class MealsLocalDataSourceImp implements MealsLocalDataSource {
         mealDao = db.getMealDao();
         meals = mealDao.getAllMeals();
     }
+
     public static MealsLocalDataSourceImp getInstance(Context context) {
         Log.d("LOCALDataSource", "getInstance");
         if (localSource == null) {
@@ -32,7 +33,6 @@ public class MealsLocalDataSourceImp implements MealsLocalDataSource {
         }
         return localSource;
     }
-
 
 
     @Override
@@ -64,7 +64,6 @@ public class MealsLocalDataSourceImp implements MealsLocalDataSource {
     }
 
 
-
     @Override
     public LiveData<List<Meal>> getFavorites() {
         return mealDao.getFavorites();
@@ -79,10 +78,6 @@ public class MealsLocalDataSourceImp implements MealsLocalDataSource {
     public LiveData<Meal> getSingleMeal(String id) {
         return null;
     }
-
-
-
-
 
 
     @Override
@@ -103,5 +98,20 @@ public class MealsLocalDataSourceImp implements MealsLocalDataSource {
                 mealDao.insertMeals(meal);
             }
         }).start();
+    }
+
+    public boolean isFavorite(String mealId) {
+        LiveData<List<Meal>> favoritesLiveData = mealDao.getFavorites();
+
+        List<Meal> favorites = favoritesLiveData.getValue();
+
+        if (favorites != null) {
+            for (Meal meal : favorites) {
+                if (meal.getIdMeal().equals(mealId)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

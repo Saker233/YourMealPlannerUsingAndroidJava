@@ -10,10 +10,12 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 
 import com.bumptech.glide.Glide;
 import com.example.yourmealplanner.Home.model.Meal;
@@ -27,6 +29,8 @@ import com.example.yourmealplanner.database.MealsLocalDataSourceImp;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.YouTubePlayerUtils;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
+import java.util.List;
+
 public class MealFragment extends Fragment implements MealView {
 
     private TextView mealName;
@@ -39,6 +43,8 @@ public class MealFragment extends Fragment implements MealView {
     private static final String TAG = "MealFragment";
     private MealRemoteDataSource remoteDataSource;
     private MealsLocalDataSourceImp local;
+    private Meal currentMeal;
+    private List<Meal> favoriteMeals;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,10 +83,29 @@ public class MealFragment extends Fragment implements MealView {
             mealPresenter.getMealDetails(mealId);
         }
 
+        mealPresenter.getFavorites().observe(getViewLifecycleOwner(), new Observer<List<Meal>>() {
+            @Override
+            public void onChanged(List<Meal> meals) {
+                favoriteMeals = meals;
+                if (currentMeal != null) {
+                    btnFav.setText(isMealFavorite(currentMeal) ? "Remove from Favorites" : "Add to Favorites");
+                }
+            }
+        });
+
         btnFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (currentMeal != null) {
 
+
+                        mealPresenter.addToFav(currentMeal);
+                        btnFav.setText("Remove from Favorites");
+                        Toast.makeText(view.getContext(), "Meal added to favorites", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    Toast.makeText(view.getContext(), "No meal information available", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -98,6 +123,7 @@ public class MealFragment extends Fragment implements MealView {
 
     @Override
     public void showDetails(Meal meal) {
+        currentMeal = meal;
         mealName.setText(meal.getStrMeal());
         Glide.with(requireContext()).load(meal.getStrMealThumb()).into(mealImage);
         txtIngredient.setText(meal.getStrIngredients());
@@ -123,5 +149,15 @@ public class MealFragment extends Fragment implements MealView {
     public void showErrorMsg(String error) {
         Log.e(TAG, error); // Log error messages
     }
-}
 
+    private boolean isMealFavorite(Meal meal) {
+        if (favoriteMeals != null) {
+            for (Meal favorite : favoriteMeals) {
+                if (favorite.getIdMeal().equals(meal.getIdMeal())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+}

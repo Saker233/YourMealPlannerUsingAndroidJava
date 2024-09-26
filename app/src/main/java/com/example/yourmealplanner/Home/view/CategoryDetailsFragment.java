@@ -38,6 +38,12 @@ public class CategoryDetailsFragment extends Fragment implements OnMealClickList
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        getCategoriesFromDataSource();
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -81,7 +87,6 @@ public class CategoryDetailsFragment extends Fragment implements OnMealClickList
 
             @Override
             public void onFailureResult_CAT(String errorMsg_cat) {
-                // Handle error
             }
 
             @Override
@@ -91,12 +96,10 @@ public class CategoryDetailsFragment extends Fragment implements OnMealClickList
 
             @Override
             public void onSuccessResult_MEAL(Meal meals) {
-                // Not used here
             }
 
             @Override
             public void onFailureResult_MEAL(String errorMsg_meal) {
-                // Not used here
             }
 
 

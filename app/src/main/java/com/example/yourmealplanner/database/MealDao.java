@@ -32,7 +32,10 @@ public interface MealDao {
     @Delete
     void deleteMeal(Meal meal);
 
-    @Query("SELECT * FROM meal WHERE isFav = true")
+//    @Query("SELECT * FROM meal WHERE isFav = true")
+//    LiveData<List<Meal>> getFavorites();
+
+    @Query("SELECT * FROM meal")
     LiveData<List<Meal>> getFavorites();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

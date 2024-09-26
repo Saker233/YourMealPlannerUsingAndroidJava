@@ -26,11 +26,9 @@ public class MainActivity extends AppCompatActivity {
         Log.d("MainActivity", "onCreate: Setting content view");
         setContentView(R.layout.activity_main);
 
-        // Initialize BottomNavigationView
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         Log.d("MainActivity", "BottomNavigationView initialized");
 
-        // Initialize NavHostFragment and NavController
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.nav_host_fragment);
 

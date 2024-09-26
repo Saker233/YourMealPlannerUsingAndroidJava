@@ -54,30 +54,20 @@ public class CategoryClient {
             @Override
             public void onResponse(Call<CategoryResponse> call, Response<CategoryResponse> response) {
                 if (response.isSuccessful()) {
-                    Log.d(TAG, "Response: " + response.body());
-
-                    if (response.body() != null) {
-                        CategoryResponse categoryResponse = response.body();
-
-                        if (categoryResponse.categories != null) {
-                            callback.onSuccessResult_CAT(categoryResponse.categories);
-                        } else {
-                            Log.e(TAG, "Categories list is null");
-                            callback.onFailureResult_CAT("No categories found");
-                        }
+                    CategoryResponse categoryResponse = response.body();
+                    if (categoryResponse != null && categoryResponse.categories != null) {
+                        // Use categoryResponse.categories safely here
                     } else {
-                        Log.e(TAG, "Response body is null");
-                        callback.onFailureResult_CAT("Failed to fetch categories");
+                        Log.e("MealRemoteDataSource", "Categories list is null or CategoryResponse is null");
                     }
                 } else {
-                    Log.e(TAG, "Response unsuccessful: " + response.code());
-                    callback.onFailureResult_CAT("Error: " + response.message());
+                    Log.e("MealRemoteDataSource", "Response unsuccessful: " + response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<CategoryResponse> call, Throwable t) {
-                callback.onFailureResult_CAT(t.getMessage());
+                Log.e("MealRemoteDataSource", "API call failed: " + t.getMessage());
             }
         });
     }

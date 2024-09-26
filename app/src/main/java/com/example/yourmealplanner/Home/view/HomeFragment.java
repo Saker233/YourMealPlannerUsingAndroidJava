@@ -63,6 +63,8 @@ public class HomeFragment extends Fragment implements  HomeView, OnCategoryClick
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        isMealFetched = false;
+
         txtInsp = view.findViewById(R.id.txtInsp);
         imageInsp = view.findViewById(R.id.imageInsp);
         recyclerCategories = view.findViewById(R.id.recyclerCategories);
@@ -75,7 +77,10 @@ public class HomeFragment extends Fragment implements  HomeView, OnCategoryClick
         categoryAdapter = new CategoryAdapter(requireContext(), new ArrayList<Category>(), this);
         recyclerCategories.setAdapter(categoryAdapter);
 
-        presenter.getRandomMeal();
+        if (!isMealFetched) {
+            presenter.getRandomMeal();
+            isMealFetched = true;
+        }
         presenter.getCategories();
 
 
@@ -139,13 +144,11 @@ public class HomeFragment extends Fragment implements  HomeView, OnCategoryClick
     }
 
     private void navigateToMealDetails(Meal meal) {
-        // Create a Bundle to pass the meal ID
         Bundle bundle = new Bundle();
-        bundle.putString("mealId", meal.getIdMeal()); // Ensure you pass the meal ID
+        bundle.putString("mealId", meal.getIdMeal());
 
-        // Use NavController to navigate
         NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
-        navController.navigate(R.id.nav_meal, bundle); // Use the correct ID from your nav_graph.xml
+        navController.navigate(R.id.nav_meal, bundle);
     }
 
 

@@ -70,4 +70,3 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder
         }
     }
 }
-

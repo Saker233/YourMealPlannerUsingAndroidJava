@@ -29,7 +29,6 @@ public class MealRemoteDataSource {
     private HomeView view;
 
 
-    // Constructor with context parameter
     private MealRemoteDataSource(Context context) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -52,19 +51,24 @@ public class MealRemoteDataSource {
         mealService.getRandomMeal().enqueue(new Callback<MealResponse>() {
             @Override
             public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
-                if (response.isSuccessful() && response.body() != null && !response.body().getMeals().isEmpty()) {
-                    // Get the first meal from the list
-                    Meal randomMeal = response.body().getMeals().get(0);
-                    networkCallback.onSuccessResult_MEAL(randomMeal);
+                if (response.isSuccessful() && response.body() != null) {
+                    Log.d(TAG, "MealResponse: " + response.body());
+                    if (!response.body().getMeals().isEmpty()) {
+                        Meal randomMeal = response.body().getMeals().get(0);
+                        networkCallback.onSuccessResult_MEAL(randomMeal);
+                    } else {
+                        Log.e(TAG, "No meals found in response");
+                        networkCallback.onFailureResult_MEAL("No meal found in response");
+                    }
                 } else {
-                    networkCallback.onFailureResult_MEAL("No meal found in response");
+                    Log.e(TAG, "API call unsuccessful or response body is null: " + response.message());
+                    networkCallback.onFailureResult_MEAL("Failed to fetch meal details");
                 }
             }
 
-
-
             @Override
             public void onFailure(Call<MealResponse> call, Throwable throwable) {
+                Log.e(TAG, "Error fetching meal: " + throwable.getMessage());
                 networkCallback.onFailureResult_MEAL(throwable.getMessage());
             }
         });
@@ -94,7 +98,18 @@ public class MealRemoteDataSource {
         categoryService.getCategory().enqueue(new Callback<CategoryResponse>() {
             @Override
             public void onResponse(Call<CategoryResponse> call, Response<CategoryResponse> response) {
-                networkCallback.onSuccessResult_CAT(response.body().categories);
+                if (response.isSuccessful() && response.body() != null) {
+                    CategoryResponse categoryResponse = response.body();
+                    if (categoryResponse != null && categoryResponse.categories != null) {
+                        networkCallback.onSuccessResult_CAT(categoryResponse.categories);
+                    } else {
+                        Log.e(TAG, "Categories list is null");
+                        networkCallback.onFailureResult_CAT("No categories found");
+                    }
+                } else {
+                    Log.e(TAG, "API call unsuccessful or response body is null");
+                    networkCallback.onFailureResult_CAT("Failed to fetch categories");
+                }
             }
 
             @Override

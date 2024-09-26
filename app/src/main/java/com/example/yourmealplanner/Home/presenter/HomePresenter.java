@@ -87,4 +87,3 @@ public class HomePresenter implements NetworkCallback<Meal> {
 
 
 }
-

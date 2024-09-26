@@ -2,6 +2,8 @@ package com.example.yourmealplanner.Home.presenter;
 
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
+
 import com.example.yourmealplanner.Home.model.Category;
 import com.example.yourmealplanner.Home.model.Meal;
 import com.example.yourmealplanner.Home.view.MealView;
@@ -19,10 +21,11 @@ import retrofit2.Response;
 
 public class MealPresenterImp implements MealPresenter {
 
-    private final MealsLocalDataSource local; // Local data source
+    private final MealsLocalDataSource local;
     private final MealRemoteDataSource remote;
     MealView mealView;
     private static final String TAG = "MealPresenterImp";
+    private MealsLocalDataSource localDataSource;
 
     public MealPresenterImp(MealView mealView, MealsLocalDataSource local, MealRemoteDataSource remote) {
         this.mealView = mealView;
@@ -37,10 +40,14 @@ public class MealPresenterImp implements MealPresenter {
     }
 
     @Override
+    public LiveData<List<Meal>> getFavorites() {
+        return local.getFavorites();
+    }
+
+    @Override
     public void getMealDetails(String id) {
         Log.i(TAG, "getMealDetails: " + id);
 
-        // Call the remote data source and pass the current instance as the callback
         remote.getDetails(id, new NetworkCallback<Meal>() {
             @Override
             public void onSuccessResult_MEAL(Meal meal) {
@@ -68,6 +75,8 @@ public class MealPresenterImp implements MealPresenter {
             public void onSuccessResult(Meal result) {
 
             }
+
+
 
 
         });
