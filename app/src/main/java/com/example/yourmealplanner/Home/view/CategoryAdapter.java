@@ -32,8 +32,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         this.context = _context;
     }
     public void setCategories(List<Category> categories) {
-        this.categoryList = categories; // Update the category list
-        notifyDataSetChanged(); // Notify adapter to refresh the data
+        this.categoryList = categories;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -46,16 +46,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Category category = categoryList.get(position);
-        // Bind category data to the views (e.g., set the name, image, etc.)
         holder.categoryName.setText(category.getStrCategory());
 
-        // Use RequestOptions to ensure proper image loading
         Glide.with(context)
                 .load(category.getStrCategoryThumb())
-                .apply(new RequestOptions().placeholder(R.drawable.ic_launcher_background)) // Add a placeholder image
+                .apply(new RequestOptions().placeholder(R.drawable.ic_launcher_background))
                 .into(holder.categoryImage);
 
-        // Set the click listener in the ViewHolder
         holder.itemView.setOnClickListener(v -> {
             listener.onCategoryClick(category);
             Toast.makeText(context, "Clicked on " + category.getStrCategory(), Toast.LENGTH_SHORT).show();

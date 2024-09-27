@@ -36,7 +36,7 @@ public class MealClient {
             @Override
             public void onResponse(Call<MealResponse> call, retrofit2.Response<MealResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    List<Meal> meals = response.body().getMeals(); // Assuming MealResponse has a getMeals() method
+                    List<Meal> meals = response.body().getMeals();
                     if (meals != null && !meals.isEmpty()) {
                         callback.onSuccess(meals);
                     } else {

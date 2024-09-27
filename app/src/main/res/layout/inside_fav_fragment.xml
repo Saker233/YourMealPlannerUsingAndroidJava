@@ -25,35 +25,26 @@
         android:id="@+id/titleTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:text="Title:"
         android:textColor="#004D40"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img" />
-
-    <TextView
-        android:id="@+id/titleTxtView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="Product Title"
-        android:textColor="#00695C"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/titleTxt"
-        app:layout_constraintTop_toTopOf="@+id/titleTxt" />
-
-    <Button
-        android:id="@+id/btnRemoveFav"
-        android:layout_width="398dp"
-        android:layout_height="74dp"
-        android:layout_marginTop="27dp"
-        android:text="@string/pressRemove"
-        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleTxtView" />
+        app:layout_constraintTop_toBottomOf="@+id/img" />
+
+    <Button
+        android:id="@+id/btnRemoveFav"
+        android:layout_width="318dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="14dp"
+        android:text="@string/removefavbtn"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleTxt" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

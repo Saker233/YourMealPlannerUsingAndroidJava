@@ -72,7 +72,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
             }
         });
 
-        // Guest login functionality
         txtGuest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

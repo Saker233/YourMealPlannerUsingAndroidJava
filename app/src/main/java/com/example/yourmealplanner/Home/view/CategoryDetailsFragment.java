@@ -50,7 +50,7 @@ public class CategoryDetailsFragment extends Fragment implements OnMealClickList
         catRecycle = view.findViewById(R.id.catRecycle);
         catRecycle.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // Retrieve data passed via bundle
+
         Bundle args = getArguments();
         if (args != null) {
             String categoryName = args.getString("categoryName");
@@ -65,13 +65,13 @@ public class CategoryDetailsFragment extends Fragment implements OnMealClickList
             @Override
             public void onSuccess(List<Meal> meals) {
                 // Set the adapter with fetched meals
-                mealAdapter = new MealAdapter(meals, CategoryDetailsFragment.this);  // Pass this fragment as click listener
+                mealAdapter = new MealAdapter(meals, CategoryDetailsFragment.this);
+
                 catRecycle.setAdapter(mealAdapter);
             }
 
             @Override
             public void onError(Throwable throwable) {
-                // Handle error (show a message to the user, log it, etc.)
             }
         });
     }
@@ -80,7 +80,6 @@ public class CategoryDetailsFragment extends Fragment implements OnMealClickList
         CategoryClient.getInstance().getCategories(new NetworkCallback<List<Category>>() {
             @Override
             public void onSuccessResult_CAT(List<Category> categories) {
-                // Use the categories list, e.g., set up your RecyclerView adapter
                 categoryAdapter = new CategoryAdapter(getContext(), categories, CategoryDetailsFragment.this);
                 catRecycle.setAdapter(categoryAdapter);
             }
@@ -108,7 +107,6 @@ public class CategoryDetailsFragment extends Fragment implements OnMealClickList
 
     @Override
     public void onMealClick(Meal meal) {
-        // Handle meal click event (to navigate to meal detail screen)
         MealFragment mealDetailsFragment = new MealFragment();
         Bundle bundle = new Bundle();
         bundle.putString("mealId", meal.getIdMeal());
@@ -120,8 +118,6 @@ public class CategoryDetailsFragment extends Fragment implements OnMealClickList
 
     @Override
     public void onCategoryClick(Category category) {
-        // Handle category click event
-        // For example, you might want to navigate to another fragment to show meals in that category
         CategoryDetailsFragment detailsFragment = new CategoryDetailsFragment();
         Bundle bundle = new Bundle();
         bundle.putString("categoryName", category.getStrCategory());

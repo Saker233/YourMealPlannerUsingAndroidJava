@@ -120,7 +120,6 @@ public class Meal {
         if (strIngredient20 != null && !strIngredient20.isEmpty()) ingredients.append(strIngredient20).append("\n");
 
 
-        // Trim the last newline
         return ingredients.toString().trim();
     }
 

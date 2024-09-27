@@ -45,7 +45,7 @@ public class MealFragment extends Fragment implements MealView {
     private MealsLocalDataSourceImp local;
     private Meal currentMeal;
     private List<Meal> favoriteMeals;
-
+    private TextView txtSteps;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +77,7 @@ public class MealFragment extends Fragment implements MealView {
         btnFav = view.findViewById(R.id.btnFav);
         btnWeek = view.findViewById(R.id.btnWeek);
         meal_video = view.findViewById(R.id.webView);
+        txtSteps =  view.findViewById(R.id.txtSteps);
 
         if (getArguments() != null) {
             String mealId = getArguments().getString("mealId");
@@ -127,27 +128,21 @@ public class MealFragment extends Fragment implements MealView {
         mealName.setText(meal.getStrMeal());
         Glide.with(requireContext()).load(meal.getStrMealThumb()).into(mealImage);
         txtIngredient.setText(meal.getStrIngredients());
-        if (meal.getStrYoutube() != null) {
-            meal_video.setVisibility(View.VISIBLE);
-            String videoUrl = meal.getStrYoutube().replace("watch?v=", "embed/");
-            String videoFrame = "<iframe width=\"100%\" height=\"100%\" src=\"" + videoUrl + "\" frameborder=\"0\" allowfullscreen></iframe>";
+        txtSteps.setText((meal.getStrInstructions()));
 
-            meal_video.getSettings().setJavaScriptEnabled(true);
-            meal_video.setWebViewClient(new WebViewClient() {
-                @Override
-                public void onPageFinished(WebView view, String url) {
 
-                }
-            });
-            meal_video.loadData(videoFrame, "text/html", "utf-8");
-        } else {
-            meal_video.setVisibility(View.GONE);
-        }
+        meal_video.setVisibility(View.VISIBLE);
+        String videoUrl = meal.getStrYoutube().replace("watch?v=", "embed/");
+        String videoFrame = "<iframe width=\"100%\" height=\"100%\" src=\"" + videoUrl + "\" frameborder=\"0\" allowfullscreen></iframe>";
+        meal_video.getSettings().setJavaScriptEnabled(true);
+        meal_video.loadData(videoFrame, "text/html", "utf-8");
+
+
     }
 
     @Override
     public void showErrorMsg(String error) {
-        Log.e(TAG, error); // Log error messages
+        Log.e(TAG, error);
     }
 
     private boolean isMealFavorite(Meal meal) {

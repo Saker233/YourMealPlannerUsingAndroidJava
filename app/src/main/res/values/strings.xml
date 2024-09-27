@@ -27,4 +27,6 @@
     <string name="catName">Category Name</string>
     <string name="presstoremove">Press To Remove From Favorite</string>
     <string name="pressRemove">Press To Remove From Favorites</string>
+    <string name="removefavbtn">Remove From Favorite</string>
+    <string name="steps">Steps</string>
 </resources>

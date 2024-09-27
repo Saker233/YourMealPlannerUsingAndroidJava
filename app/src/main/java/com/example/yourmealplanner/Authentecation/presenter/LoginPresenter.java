@@ -33,18 +33,13 @@ public class LoginPresenter {
     public void login(String email, String password) {
         userDatabase.userDao().getUserByEmail(email).observe((LifecycleOwner) view, user -> {
             if (user != null) {
-                // Hash the provided password with the retrieved salt
                 String hashedInputPassword = PasswordUtils.hashPassword(password, user.getSalt());
                 if (hashedInputPassword.equals(user.getHashedPassword())) {
-                    // Login successful
-                    // Update SharedPreferences and notify the view...
                     view.onLoginSuccess();
                 } else {
-                    // Login failed
                     view.onLoginFailed();
                 }
             } else {
-                // Login failed
                 view.onLoginFailed();
             }
         });

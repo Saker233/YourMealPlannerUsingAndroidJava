@@ -42,6 +42,7 @@ public class HomeFragment extends Fragment implements  HomeView, OnCategoryClick
     private HomePresenter presenter;
     private Meal randomMeal;
     private boolean isMealFetched = false;
+    private boolean isMealFetched_new = false;
 
 
     @Override
@@ -70,8 +71,7 @@ public class HomeFragment extends Fragment implements  HomeView, OnCategoryClick
         recyclerCategories = view.findViewById(R.id.recyclerCategories);
         recyclerCategories.setHasFixedSize(true);
 
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerCategories.setLayoutManager(linearLayoutManager);
 
         categoryAdapter = new CategoryAdapter(requireContext(), new ArrayList<Category>(), this);
@@ -83,7 +83,7 @@ public class HomeFragment extends Fragment implements  HomeView, OnCategoryClick
         }
         presenter.getCategories();
 
-
+        isMealFetched_new =  false;
         view.findViewById(R.id.btnViewDet).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,33 +94,36 @@ public class HomeFragment extends Fragment implements  HomeView, OnCategoryClick
                 }
             }
         });
-
-
     }
 
 
 
     @Override
     public void displayRandomMeal(Meal meal) {
-        this.randomMeal = meal;
-        if (meal != null) {
-            txtInsp.setText(meal.getStrMeal());
 
-            // Load the image using Glide
-            Glide.with(requireContext())
-                    .load(meal.getStrMealThumb())
-                    .apply(new RequestOptions().override(200, 200))
-                    .placeholder(R.drawable.ic_launcher_background)
-                    .error(R.drawable.ic_launcher_foreground)
-                    .into(imageInsp);
+        if(!isMealFetched_new) {
+            this.randomMeal = meal;
+            if (meal != null) {
+                txtInsp.setText(meal.getStrMeal());
 
-            Log.i(TAG, "displayRandomMeal: Meal displayed successfully");
-        } else {
-            // Handle null meal case
-            txtInsp.setText("No data available");
-            imageInsp.setImageResource(R.drawable.food);
-            Log.i(TAG, "displayRandomMeal: No data available");
+
+                Glide.with(requireContext())
+                        .load(meal.getStrMealThumb())
+                        .apply(new RequestOptions().override(200, 200))
+                        .placeholder(R.drawable.ic_launcher_background)
+                        .error(R.drawable.ic_launcher_foreground)
+                        .into(imageInsp);
+
+                Log.i(TAG, "displayRandomMeal: Meal displayed successfully");
+                isMealFetched_new =  true;
+            } else {
+
+                txtInsp.setText("No data available");
+                imageInsp.setImageResource(R.drawable.food);
+                Log.i(TAG, "displayRandomMeal: No data available");
+            }
         }
+
     }
 
     @Override

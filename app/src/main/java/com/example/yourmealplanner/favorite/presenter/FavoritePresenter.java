@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 
 import com.example.yourmealplanner.Home.model.Meal;
+import com.example.yourmealplanner.Repo.RepositoryImpl;
 import com.example.yourmealplanner.database.AppDataBase;
 import com.example.yourmealplanner.database.MealDao;
 import com.example.yourmealplanner.database.MealsLocalDataSource;
@@ -19,6 +20,7 @@ public class FavoritePresenter {
     private FavoriteView view;
     private MealDao mealDao;
     private MealsLocalDataSource local;
+    private RepositoryImpl repository;
 
     public FavoritePresenter(FavoriteView view, Context context) {
         this.view = view;
@@ -29,7 +31,6 @@ public class FavoritePresenter {
     public void removeProductFromFavorites(Meal meal) {
         if(meal != null) {
             local.deleteMeal(meal);
-//            Toast.makeText((Context) view, "Product Removed To Favourites", Toast.LENGTH_SHORT).show();
         }
 
 

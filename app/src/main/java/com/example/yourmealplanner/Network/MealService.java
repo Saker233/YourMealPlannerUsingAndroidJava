@@ -8,8 +8,6 @@ public interface MealService {
     @GET("random.php")
     Call<MealResponse> getRandomMeal();
 
-
-
     @GET("filter.php")
     Call<MealResponse> getMealsByCategory(@Query("c") String category);
 

@@ -1,6 +1,7 @@
 package com.example.yourmealplanner.favorite.view;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,8 @@ import android.widget.HorizontalScrollView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,7 +42,8 @@ public class FavoriteFragment extends Fragment implements FavoriteView, OnFavCli
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(layoutManager);        presenter = new FavoritePresenter(this, getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+        presenter = new FavoritePresenter(this, getActivity());
 
         mAdapter = new FavoriteAdapter(requireActivity(), new ArrayList<>(), this);
         recyclerView.setAdapter(mAdapter);
@@ -57,13 +61,18 @@ public class FavoriteFragment extends Fragment implements FavoriteView, OnFavCli
 
     @Override
     public void showError(String errorMsg) {
-        Toast.makeText(getContext(), errorMsg, Toast.LENGTH_SHORT).show();
+        Log.e("FavoriteFragment", errorMsg);
     }
 
 
 
     @Override
     public void onFavMealClick(Meal meal) {
+        Bundle bundle = new Bundle();
+        bundle.putString("mealId", meal.getIdMeal());
+
+        NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+        navController.navigate(R.id.nav_meal, bundle);
     }
 
     @Override

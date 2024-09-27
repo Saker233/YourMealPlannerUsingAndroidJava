@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.yourmealplanner.Home.model.Meal;
+import com.example.yourmealplanner.Home.model.MealClient;
 import com.example.yourmealplanner.Home.view.HomeView;
 import com.example.yourmealplanner.database.AppDataBase;
 import com.example.yourmealplanner.database.MealDao;
@@ -36,7 +37,7 @@ public class MealRemoteDataSource {
                 .build();
 
         mealService = retrofit.create(MealService.class);
-        categoryService = retrofit.create(CategoryService.class); // Initialize categoryService
+        categoryService = retrofit.create(CategoryService.class);
     }
 
 
@@ -53,13 +54,13 @@ public class MealRemoteDataSource {
             public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Log.d(TAG, "MealResponse: " + response.body());
-                    if (!response.body().getMeals().isEmpty()) {
+//                    if (!response.body().getMeals().isEmpty()) {
                         Meal randomMeal = response.body().getMeals().get(0);
                         networkCallback.onSuccessResult_MEAL(randomMeal);
-                    } else {
-                        Log.e(TAG, "No meals found in response");
-                        networkCallback.onFailureResult_MEAL("No meal found in response");
-                    }
+//                    } else {
+//                        Log.e(TAG, "No meals found in response");
+//                        networkCallback.onFailureResult_MEAL("No meal found in response");
+//                    }
                 } else {
                     Log.e(TAG, "API call unsuccessful or response body is null: " + response.message());
                     networkCallback.onFailureResult_MEAL("Failed to fetch meal details");
@@ -115,6 +116,20 @@ public class MealRemoteDataSource {
             @Override
             public void onFailure(Call<CategoryResponse> call, Throwable throwable) {
                 networkCallback.onFailureResult_CAT(throwable.getMessage());
+            }
+        });
+    }
+
+    public void getMealsByCategory(String categoryName, NetworkCallback<List<Meal>> callback) {
+        MealClient.getInstance().getMealsByCategory(categoryName, new MealCallback<List<Meal>>() {
+            @Override
+            public void onSuccess(List<Meal> meals) {
+                callback.onSuccessResult(meals);
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                callback.onFailureResult_CAT(t.getMessage());
             }
         });
     }

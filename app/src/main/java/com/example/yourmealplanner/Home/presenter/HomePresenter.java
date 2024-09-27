@@ -32,8 +32,8 @@ public class HomePresenter implements NetworkCallback<Meal> {
 
 
 
-        remote.getRandom(this);
-        remote.getCategories(this);
+//        remote.getRandom(this);
+//        remote.getCategories(this);
 
 
 

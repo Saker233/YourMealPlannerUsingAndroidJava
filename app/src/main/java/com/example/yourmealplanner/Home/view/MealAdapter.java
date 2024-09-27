@@ -53,7 +53,6 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder
             mealImage = itemView.findViewById(R.id.meal_image);
             mealName = itemView.findViewById(R.id.meal_name);
 
-            // Set click listener for the itemView
             itemView.setOnClickListener(v -> {
                 if (mealClickListener != null) {
                     mealClickListener.onMealClick(meals.get(getAdapterPosition()));

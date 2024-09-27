@@ -51,6 +51,21 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
             constraintLayout = v.findViewById(R.id.main);
 
             Log.d(TAG, "ViewHolder initialized: btnFav is " + (btnFav != null ? "not null" : "null"));
+
+            meal_image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (listener != null) {
+                        listener.onFavMealClick(values.get(getAdapterPosition()));
+                    }
+                }
+            });
+//            itemView.setOnClickListener(v -> {
+//                if (listener != null) {
+//                    listener.onFavMealClick(values.get(getAdapterPosition()));
+//                }
+//            });
+
         }
     }
 
