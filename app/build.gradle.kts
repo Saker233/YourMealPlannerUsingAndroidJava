@@ -50,6 +50,7 @@ dependencies {
     implementation ("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")
     implementation ("com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.28")
     implementation ("com.airbnb.android:lottie:5.0.3")
+    implementation ("androidx.webkit:webkit:1.4.0")
     implementation (libs.appcompat)
     implementation (libs.activity)
     implementation (libs.constraintlayout)

@@ -45,8 +45,8 @@ public class HomePresenter implements NetworkCallback<Meal> {
     public void getRandomMeal() {
         Log.d("TAG", "getRandomMeal called");
         if (!isMealFetching) {
-            isMealFetching = true;
             remote.getRandom(this);
+            isMealFetching = true;
         } else {
             Log.d("TAG", "Fetching already in progress");
         }

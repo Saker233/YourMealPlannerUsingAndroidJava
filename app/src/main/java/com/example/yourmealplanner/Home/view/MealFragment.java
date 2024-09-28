@@ -81,7 +81,7 @@ public class MealFragment extends Fragment implements MealView {
         meal_video = view.findViewById(R.id.webView);
         txtSteps =  view.findViewById(R.id.txtSteps);
 
-        if (getArguments() != null) {
+        if (getArguments() != null && currentMeal == null) {
             String mealId = getArguments().getString("mealId");
             mealPresenter.getMealDetails(mealId);
         }
@@ -112,10 +112,12 @@ public class MealFragment extends Fragment implements MealView {
             }
         });
 
-        btnWeek.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        btnWeek.setOnClickListener(view1 -> {
+            if (currentMeal != null) {
                 showMealSelectionDialog();
+                Toast.makeText(getContext(), "Meal details LOADED", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getContext(), "Meal details not loaded yet", Toast.LENGTH_SHORT).show();
             }
         });
 

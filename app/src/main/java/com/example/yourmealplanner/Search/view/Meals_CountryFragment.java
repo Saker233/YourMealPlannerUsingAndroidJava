@@ -28,7 +28,7 @@ import com.example.yourmealplanner.Search.presenter.SearchPresenter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Meals_CountryFragment extends Fragment implements SearchViews {
+public class Meals_CountryFragment extends Fragment implements SearchViews, OnMealClickListener {
 
     private RecyclerView recyclerCountry;
     private MealAdapter mealAdapter;
@@ -141,7 +141,8 @@ public class Meals_CountryFragment extends Fragment implements SearchViews {
         });
     }
 
-    private void onMealClick(Meal meal) {
+    @Override
+    public void onMealClick(Meal meal) {
         MealFragment mealDetailsFragment = new MealFragment();
         Bundle bundle = new Bundle();
         bundle.putString("mealId", meal.getIdMeal());
@@ -150,4 +151,6 @@ public class Meals_CountryFragment extends Fragment implements SearchViews {
         NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
         navController.navigate(R.id.nav_meal, bundle);
     }
+
+
 }

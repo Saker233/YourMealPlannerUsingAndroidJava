@@ -31,6 +31,7 @@ public class MealRemoteDataSource {
     private Context context;
     private static MealRemoteDataSource instance;
     private HomeView view;
+    private boolean isMealFetching = false;
 
 
     private MealRemoteDataSource(Context context) {
@@ -60,10 +61,17 @@ public class MealRemoteDataSource {
 
 
     public void getRandom(NetworkCallback networkCallback) {
+        if (isMealFetching) {
+            Log.d(TAG, "Fetch already in progress.");
+            return;
+        }
+
+        isMealFetching = true;
         mealService.getRandomMeal().enqueue(new Callback<MealResponse>() {
             @Override
             public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
+                isMealFetching = false;
+                if (response.isSuccessful()) {
                     Log.d(TAG, "MealResponse: " + response.body());
                     Meal randomMeal = response.body().getMeals().get(0);
                     networkCallback.onSuccessResult_MEAL(randomMeal);
@@ -76,6 +84,7 @@ public class MealRemoteDataSource {
 
             @Override
             public void onFailure(Call<MealResponse> call, Throwable throwable) {
+                isMealFetching = false;
                 Log.e(TAG, "Error fetching meal: " + throwable.getMessage());
                 networkCallback.onFailureResult_MEAL(throwable.getMessage());
             }
@@ -83,6 +92,12 @@ public class MealRemoteDataSource {
     }
 
     public void getDetails(String id, NetworkCallback networkCallback) {
+//        if (isMealFetching) {
+//            Log.d(TAG, "Fetch already in progress.");
+//            return;
+//        }
+//
+//        isMealFetching = true;
         mealService.getMealDetails(id).enqueue(new Callback<MealResponse>() {
             @Override
             public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
