@@ -85,5 +85,10 @@ public class HomePresenter implements NetworkCallback<Meal> {
 
     }
 
+    @Override
+    public void onFailureResult(String errorMessage) {
+
+    }
+
 
 }

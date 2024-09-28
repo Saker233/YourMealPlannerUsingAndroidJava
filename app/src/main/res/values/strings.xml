@@ -29,4 +29,9 @@
     <string name="pressRemove">Press To Remove From Favorites</string>
     <string name="removefavbtn">Remove From Favorite</string>
     <string name="steps">Steps</string>
+    <string name="searchtitle">Searching For Meals Meals</string>
+    <string name="searchcountry">Search By Country</string>
+    <string name="searchingredient">Search By Ingredient</string>
+    <string name="searchCategory">Search By Category</string>
+    <string name="countryname">Country Name</string>
 </resources>

@@ -43,6 +43,11 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder
     public int getItemCount() {
         return meals.size();
     }
+    public void setMeals(List<Meal> meals) {
+        this.meals.clear();
+        this.meals.addAll(meals);
+        notifyDataSetChanged();
+    }
 
     class MealViewHolder extends RecyclerView.ViewHolder {
         ImageView mealImage;

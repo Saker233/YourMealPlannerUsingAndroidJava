@@ -64,7 +64,6 @@ public class CategoryDetailsFragment extends Fragment implements OnMealClickList
         MealClient.getInstance().getMealsByCategory(categoryName, new MealCallback<List<Meal>>() {
             @Override
             public void onSuccess(List<Meal> meals) {
-                // Set the adapter with fetched meals
                 mealAdapter = new MealAdapter(meals, CategoryDetailsFragment.this);
 
                 catRecycle.setAdapter(mealAdapter);
@@ -94,6 +93,11 @@ public class CategoryDetailsFragment extends Fragment implements OnMealClickList
             }
 
             @Override
+            public void onFailureResult(String errorMessage) {
+
+            }
+
+            @Override
             public void onSuccessResult_MEAL(Meal meals) {
             }
 
@@ -118,12 +122,6 @@ public class CategoryDetailsFragment extends Fragment implements OnMealClickList
 
     @Override
     public void onCategoryClick(Category category) {
-        CategoryDetailsFragment detailsFragment = new CategoryDetailsFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("categoryName", category.getStrCategory());
-        detailsFragment.setArguments(bundle);
 
-        NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
-        navController.navigate(R.id.nav_category_details, bundle);
     }
 }

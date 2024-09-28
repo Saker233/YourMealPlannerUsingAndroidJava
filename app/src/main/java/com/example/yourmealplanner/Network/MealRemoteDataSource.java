@@ -6,6 +6,8 @@ import android.util.Log;
 import com.example.yourmealplanner.Home.model.Meal;
 import com.example.yourmealplanner.Home.model.MealClient;
 import com.example.yourmealplanner.Home.view.HomeView;
+import com.example.yourmealplanner.Search.model.Area;
+import com.example.yourmealplanner.Search.model.AreaResponse;
 import com.example.yourmealplanner.database.AppDataBase;
 import com.example.yourmealplanner.database.MealDao;
 
@@ -134,5 +136,55 @@ public class MealRemoteDataSource {
         });
     }
 
+    public void fetchMeals(String countryName, NetworkCallback<List<Meal>> networkCallback) {
+        String trimmedCountryName = countryName.trim();
+
+        Log.d(TAG, "Fetching meals for: " + trimmedCountryName);
+        mealService.getMealsByArea(countryName).enqueue(new Callback<MealResponse>() {
+            @Override
+            public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Log.d(TAG, "Response body: " + response.body());
+                    List<Meal> meals = response.body().getMeals();
+                    networkCallback.onSuccessResult(meals);
+                } else {
+                    Log.e(TAG, "No meals found or response body is null.");
+                    networkCallback.onFailureResult("No meals found for the selected country.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MealResponse> call, Throwable t) {
+                Log.e(TAG, "Error fetching meals: " + t.getMessage());
+                networkCallback.onFailureResult(t.getMessage());
+            }
+        });
+    }
+
+
+    public void getAreas(NetworkCallback<List<Area>> callback) {
+        mealService.getAreas().enqueue(new Callback<AreaResponse>() {
+            @Override
+            public void onResponse(Call<AreaResponse> call, Response<AreaResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<Area> areas = response.body().getAreas();
+                    callback.onSuccessResult(areas);
+                } else {
+                    callback.onFailureResult("Failed to fetch areas");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AreaResponse> call, Throwable t) {
+                callback.onFailureResult(t.getMessage());
+            }
+        });
+    }
+
 
 }
+
+
+
+
+

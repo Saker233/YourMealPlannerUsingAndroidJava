@@ -53,10 +53,15 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
                 .apply(new RequestOptions().placeholder(R.drawable.ic_launcher_background))
                 .into(holder.categoryImage);
 
-        holder.itemView.setOnClickListener(v -> {
-            listener.onCategoryClick(category);
-            Toast.makeText(context, "Clicked on " + category.getStrCategory(), Toast.LENGTH_SHORT).show();
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onCategoryClick(category);
+                Toast.makeText(context, "Clicked on " + category.getStrCategory(), Toast.LENGTH_SHORT).show();
+            }
         });
+
+
     }
 
     @Override

@@ -8,10 +8,12 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.example.yourmealplanner.Home.model.Meal;
+import com.example.yourmealplanner.Network.MealResponse;
 
 import java.util.List;
 
-
+import retrofit2.Call;
+import retrofit2.http.GET;
 
 
 @Dao
@@ -31,6 +33,8 @@ public interface MealDao {
 
     @Delete
     void deleteMeal(Meal meal);
+
+
 
 //    @Query("SELECT * FROM meal WHERE isFav = true")
 //    LiveData<List<Meal>> getFavorites();

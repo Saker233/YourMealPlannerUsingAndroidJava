@@ -23,16 +23,34 @@
         tools:layout="@layout/inside_fav_fragment" />
 
     <fragment
+        android:id="@+id/nav_search"
+        android:name="com.example.yourmealplanner.Search.view.SeachFragment"
+        android:label="Favorite"
+        tools:layout="@layout/search_fragment" />
+
+    <fragment
         android:id="@+id/nav_category_details"
         android:name="com.example.yourmealplanner.Home.view.CategoryDetailsFragment"
         android:label="Category Details"
         tools:layout="@layout/inside_category_home" />
+    <fragment
+        android:id="@+id/nav_country_search"
+        android:name="com.example.yourmealplanner.Search.view.CountryFragment"
+        android:label="Category Details"
+        tools:layout="@layout/search_fragment" />
+    <fragment
+        android:id="@+id/nav_country_search_meals"
+        android:name="com.example.yourmealplanner.Search.view.Meals_CountryFragment"
+        android:label="Category Details"
+        tools:layout="@layout/inside_search_country" />
 
     <fragment
         android:id="@+id/nav_category_details_details"
         android:name="com.example.yourmealplanner.Home.view.MealFragment"
         android:label="Category Details"
         tools:layout="@layout/category_item" />
+
+
 
     <fragment
         android:id="@+id/nav_profile"

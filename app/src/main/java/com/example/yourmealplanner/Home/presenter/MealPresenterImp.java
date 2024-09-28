@@ -76,7 +76,10 @@ public class MealPresenterImp implements MealPresenter {
 
             }
 
+            @Override
+            public void onFailureResult(String errorMessage) {
 
+            }
 
 
         });

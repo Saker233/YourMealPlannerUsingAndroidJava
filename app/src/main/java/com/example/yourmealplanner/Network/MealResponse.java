@@ -9,15 +9,15 @@ import java.util.List;
 public class MealResponse {
 
     @SerializedName("meals")
-    public List<Meal> meal;
+    public List<Meal> meals;
 
 
     public List<Meal> getMeals() {
-        return meal;
+        return meals;
     }
 
     public void setMeals(List<Meal> meals) {
-        this.meal = meals;
+        this.meals = meals;
     }
 }
 

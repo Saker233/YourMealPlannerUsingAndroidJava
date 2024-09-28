@@ -146,7 +146,7 @@ public class HomeFragment extends Fragment implements  HomeView, OnCategoryClick
         navigateToMealDetails(meal);
     }
 
-    private void navigateToMealDetails(Meal meal) {
+    public void navigateToMealDetails(Meal meal) {
         Bundle bundle = new Bundle();
         bundle.putString("mealId", meal.getIdMeal());
 
@@ -156,7 +156,7 @@ public class HomeFragment extends Fragment implements  HomeView, OnCategoryClick
 
 
 
-    private void navigateToCategoryDetails(Category category) {
+    public void navigateToCategoryDetails(Category category) {
         CategoryDetailsFragment fragment = new CategoryDetailsFragment();
         Bundle bundle = new Bundle();
         bundle.putString("categoryName", category.getStrCategory());

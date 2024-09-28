@@ -12,4 +12,5 @@ public interface NetworkCallback<T> {
     void onSuccessResult_CAT(List<Category> categories);
     void onFailureResult_CAT(String errorMsg_cat);
     void onSuccessResult(T result);
+    void onFailureResult(String errorMessage);
 }

@@ -55,6 +55,11 @@ public class RepositoryImpl implements Repository {
 
             }
 
+            @Override
+            public void onFailureResult(String errorMessage) {
+
+            }
+
 
         });
     }
@@ -87,6 +92,11 @@ public class RepositoryImpl implements Repository {
 
             }
 
+            @Override
+            public void onFailureResult(String errorMessage) {
+
+            }
+
 
         });
     }
@@ -99,6 +109,10 @@ public class RepositoryImpl implements Repository {
                 callback.onSuccessResult(meals);
             }
 
+            @Override
+            public void onFailureResult(String errorMessage) {
+
+            }
 
 
             @Override
