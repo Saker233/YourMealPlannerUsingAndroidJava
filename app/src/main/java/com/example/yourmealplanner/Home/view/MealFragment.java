@@ -101,7 +101,7 @@ public class MealFragment extends Fragment implements MealView {
 
 
                         mealPresenter.addToFav(currentMeal);
-                        btnFav.setText("Remove from Favorites");
+//                        btnFav.setText("Remove from Favorites");
                         Toast.makeText(view.getContext(), "Meal added to favorites", Toast.LENGTH_SHORT).show();
 
                 } else {

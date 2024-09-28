@@ -3,6 +3,8 @@ package com.example.yourmealplanner.Search.view;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -10,25 +12,24 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.yourmealplanner.Home.view.CategoryAdapter;
 import com.example.yourmealplanner.R;
 import com.example.yourmealplanner.Search.model.Area;
-
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.CountryViewHolder> {
+public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.CountryViewHolder> implements Filterable {
 
-    private List<Area> areas;
+    private List<Area> areas; // Original list
+    private List<Area> filteredAreas; // Filtered list
     private OnCountryClickListener listener;
-    private Map<String, String> countryCodeMap = new HashMap<>();;
-
+    private Map<String, String> countryCodeMap = new HashMap<>();
 
     public CountryAdapter(OnCountryClickListener listener) {
         this.areas = new ArrayList<>();
+        this.filteredAreas = new ArrayList<>();
         this.listener = listener;
         initializeCountryCodeMap();
     }
@@ -42,7 +43,7 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.CountryV
 
     @Override
     public void onBindViewHolder(@NonNull CountryViewHolder holder, int position) {
-        Area area = areas.get(position);
+        Area area = filteredAreas.get(position); // Use filtered list
         holder.txtCountryName.setText(area.getAreaName());
 
         String flagUrl = getFlagUrl(area.getAreaName());
@@ -56,19 +57,51 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.CountryV
                 listener.onCountryClick(area.getAreaName());
             }
         });
-
     }
 
     @Override
     public int getItemCount() {
-        return areas.size();
+        return filteredAreas.size();
     }
 
     public void setCountries(List<Area> areas) {
         this.areas = areas;
+        this.filteredAreas = new ArrayList<>(areas);
         notifyDataSetChanged();
     }
 
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                String query = constraint.toString().toLowerCase();
+                FilterResults results = new FilterResults();
+                List<Area> filteredList = new ArrayList<>();
+
+                if (query.isEmpty()) {
+                    filteredList.addAll(areas);
+                } else {
+                    for (Area area : areas) {
+                        if (area.getAreaName().toLowerCase().contains(query)) {
+                            filteredList.add(area);
+                        }
+                    }
+                }
+
+                results.values = filteredList;
+                results.count = filteredList.size();
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                filteredAreas.clear();
+                filteredAreas.addAll((List<Area>) results.values);
+                notifyDataSetChanged();
+            }
+        };
+    }
 
     public static class CountryViewHolder extends RecyclerView.ViewHolder {
         ImageView imageCountry;
@@ -110,7 +143,6 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.CountryV
         countryCodeMap.put("Turkish", "tr");
         countryCodeMap.put("Ukrainian", "ua");
         countryCodeMap.put("Vietnamese", "vn");
-
     }
 
     private String getFlagUrl(String areaName) {

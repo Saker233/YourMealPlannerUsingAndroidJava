@@ -3,6 +3,8 @@ package com.example.yourmealplanner.Home.view;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,16 +15,18 @@ import com.bumptech.glide.Glide;
 import com.example.yourmealplanner.Home.model.Meal;
 import com.example.yourmealplanner.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder> {
+public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder> implements Filterable {
 
     private List<Meal> meals;
+    private List<Meal> mealsFull;
     private OnMealClickListener mealClickListener;
 
-    // Constructor
     public MealAdapter(List<Meal> meals, OnMealClickListener mealClickListener) {
         this.meals = meals;
+        this.mealsFull = new ArrayList<>(meals);
         this.mealClickListener = mealClickListener;
     }
 
@@ -46,8 +50,47 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder
     public void setMeals(List<Meal> meals) {
         this.meals.clear();
         this.meals.addAll(meals);
+
+        this.mealsFull.clear();
+        this.mealsFull.addAll(meals);
         notifyDataSetChanged();
     }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                List<Meal> filteredMeals = new ArrayList<>();
+
+                if (constraint == null || constraint.length() == 0) {
+                    filteredMeals.addAll(mealsFull);
+                } else {
+                    String filterPattern = constraint.toString().toLowerCase().trim();
+
+                    for (Meal meal : mealsFull) {
+                        if (meal.getStrMeal().toLowerCase().contains(filterPattern)) {
+                            filteredMeals.add(meal);
+                        }
+                    }
+                }
+
+                FilterResults results = new FilterResults();
+                results.values = filteredMeals;
+                return results;
+            }
+
+            @SuppressWarnings("unchecked")
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                meals.clear();
+                meals.addAll((List<Meal>) results.values);
+                notifyDataSetChanged();
+            }
+        };
+    }
+
+
 
     class MealViewHolder extends RecyclerView.ViewHolder {
         ImageView mealImage;

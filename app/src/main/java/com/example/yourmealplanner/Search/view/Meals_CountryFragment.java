@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -49,7 +50,7 @@ public class Meals_CountryFragment extends Fragment implements SearchViews {
         recyclerCountry.setLayoutManager(new LinearLayoutManager(getContext()));
 
         mealAdapter = new MealAdapter(new ArrayList<>(), meal -> {
-            // Handle meal click
+
             onMealClick(meal);
         });
         recyclerCountry.setAdapter(mealAdapter);
@@ -61,6 +62,20 @@ public class Meals_CountryFragment extends Fragment implements SearchViews {
             Log.d("Meals_CountryFragment", "Country name received: " + countryName);
             fetchMeals(countryName);
         }
+
+        SearchView searchView = view.findViewById(R.id.searchView);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false; // Handle search submission if needed
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                mealAdapter.getFilter().filter(newText); // Trigger the filter
+                return true;
+            }
+        });
     }
 
     private void loadMealsByCountry(String countryName) {

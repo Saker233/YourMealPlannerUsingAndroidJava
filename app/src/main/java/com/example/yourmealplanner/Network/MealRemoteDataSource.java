@@ -123,15 +123,20 @@ public class MealRemoteDataSource {
     }
 
     public void getMealsByCategory(String categoryName, NetworkCallback<List<Meal>> callback) {
-        MealClient.getInstance().getMealsByCategory(categoryName, new MealCallback<List<Meal>>() {
+        mealService.getMealsByCategory(categoryName).enqueue(new Callback<MealResponse>() {
             @Override
-            public void onSuccess(List<Meal> meals) {
-                callback.onSuccessResult(meals);
+            public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<Meal> meals = response.body().getMeals();
+                    callback.onSuccessResult(meals);
+                } else {
+                    callback.onFailureResult("No meals found for the selected category.");
+                }
             }
 
             @Override
-            public void onError(Throwable t) {
-                callback.onFailureResult_CAT(t.getMessage());
+            public void onFailure(Call<MealResponse> call, Throwable throwable) {
+                callback.onFailureResult(throwable.getMessage());
             }
         });
     }

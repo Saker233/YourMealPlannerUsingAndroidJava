@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -33,6 +34,7 @@ public class CountryFragment extends Fragment implements SearchViews, OnCountryC
     private MealAdapter mealAdapter;
     private RecyclerView recyclerViewMeals;
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -54,6 +56,21 @@ public class CountryFragment extends Fragment implements SearchViews, OnCountryC
         }
         searchPresenter = new SearchPresenter(this, remote);
         searchPresenter.loadCountries();
+
+        // Initialize SearchView
+        SearchView searchView = view.findViewById(R.id.searchView);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                countryAdapter.getFilter().filter(newText);
+                return true;
+            }
+        });
     }
 
     @Override
