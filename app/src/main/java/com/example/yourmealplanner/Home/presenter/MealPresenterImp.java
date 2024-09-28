@@ -45,6 +45,17 @@ public class MealPresenterImp implements MealPresenter {
     }
 
     @Override
+    public void assignMealToWeekday(Meal meal, String weekday) {
+        meal.setWeekday(weekday);
+        local.insertMeal(meal);
+    }
+
+    @Override
+    public LiveData<List<Meal>> getMealsForWeekday(String weekday) {
+        return local.getMealsByWeekday(weekday);
+    }
+
+    @Override
     public void getMealDetails(String id) {
         Log.i(TAG, "getMealDetails: " + id);
 

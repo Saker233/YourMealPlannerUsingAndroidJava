@@ -41,7 +41,7 @@ public class FavoriteFragment extends Fragment implements FavoriteView, OnFavCli
         recyclerView = view.findViewById(R.id.favRecycler);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         presenter = new FavoritePresenter(this, getActivity());
 

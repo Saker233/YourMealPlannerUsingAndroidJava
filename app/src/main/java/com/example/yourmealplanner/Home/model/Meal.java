@@ -90,9 +90,23 @@ public class Meal {
     public String strIngredient20;
 
     @ColumnInfo(name = "isFav")
-    public boolean isFav;
+    public boolean isFav = false;
 
 
+    @ColumnInfo(name = "weekday")
+    public String weekday = null;
+
+    public boolean isFav() {
+        return isFav;
+    }
+
+    public String getWeekday() {
+        return weekday;
+    }
+
+    public void setWeekday(String weekday) {
+        this.weekday = weekday;
+    }
 
     public String getStrIngredients() {
         StringBuilder ingredients = new StringBuilder();

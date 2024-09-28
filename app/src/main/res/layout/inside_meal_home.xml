@@ -3,18 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/cast_expanded_controller_ad_label_background_color">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:context=".details.view.Details">
 
-        <!-- Meal Image -->
-
-        <!-- Meal Name -->
-
-        <!-- YouTube Video Player -->
 
         <TextView
             android:id="@+id/txtIngredients2"
@@ -61,7 +57,6 @@
             app:layout_constraintTop_toBottomOf="@+id/meal_name"
             app:srcCompat="@drawable/ic_launcher_background" />
 
-        <!-- More Details Title -->
         <WebView
             android:id="@+id/webView"
             android:layout_width="match_parent"
@@ -80,7 +75,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/webView" />
 
-        <!-- Details Text -->
         <TextView
             android:id="@+id/txtIngredient"
             android:layout_width="match_parent"

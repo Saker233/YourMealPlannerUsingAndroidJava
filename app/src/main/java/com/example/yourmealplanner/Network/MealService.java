@@ -19,8 +19,6 @@ public interface MealService {
     @GET("filter.php")
     Call<MealResponse> getMealsByArea(@Query("a") String area);
 
-
-
     @GET("list.php?a=list")
     Call<AreaResponse> getAreas();
 

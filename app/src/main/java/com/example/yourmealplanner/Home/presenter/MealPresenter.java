@@ -14,4 +14,8 @@ public interface MealPresenter {
 
     LiveData<List<Meal>> getFavorites();
 
+    void assignMealToWeekday(Meal meal, String weekday);
+
+    LiveData<List<Meal>> getMealsForWeekday(String weekday);
+
 }

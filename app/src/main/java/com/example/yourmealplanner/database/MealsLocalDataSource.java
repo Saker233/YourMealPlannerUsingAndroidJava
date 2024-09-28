@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface MealsLocalDataSource {
 
+    LiveData<List<Meal>> getMealsByWeekday(String weekday);
 
-
-
+    MealDao getMealDao();
     /**
      * Inserts a single meal into the database.
      * @param meal The meal to be inserted.

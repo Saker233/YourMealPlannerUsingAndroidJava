@@ -1,6 +1,7 @@
 package com.example.yourmealplanner.Network;
 
 import android.content.Context;
+import android.os.Handler;
 import android.util.Log;
 
 import com.example.yourmealplanner.Home.model.Meal;
@@ -50,19 +51,23 @@ public class MealRemoteDataSource {
         return instance;
     }
 
+
+
+
+
+
+
+
+
     public void getRandom(NetworkCallback networkCallback) {
         mealService.getRandomMeal().enqueue(new Callback<MealResponse>() {
             @Override
             public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Log.d(TAG, "MealResponse: " + response.body());
-//                    if (!response.body().getMeals().isEmpty()) {
-                        Meal randomMeal = response.body().getMeals().get(0);
-                        networkCallback.onSuccessResult_MEAL(randomMeal);
-//                    } else {
-//                        Log.e(TAG, "No meals found in response");
-//                        networkCallback.onFailureResult_MEAL("No meal found in response");
-//                    }
+                    Meal randomMeal = response.body().getMeals().get(0);
+                    networkCallback.onSuccessResult_MEAL(randomMeal);
+
                 } else {
                     Log.e(TAG, "API call unsuccessful or response body is null: " + response.message());
                     networkCallback.onFailureResult_MEAL("Failed to fetch meal details");
@@ -188,7 +193,6 @@ public class MealRemoteDataSource {
 
 
 }
-
 
 
 

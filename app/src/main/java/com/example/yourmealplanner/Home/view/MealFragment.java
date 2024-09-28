@@ -1,5 +1,7 @@
 package com.example.yourmealplanner.Home.view;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -113,14 +115,33 @@ public class MealFragment extends Fragment implements MealView {
         btnWeek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                showMealSelectionDialog();
             }
         });
 
-
-
-
     }
+
+
+
+
+    private void showMealSelectionDialog() {
+        String[] weekdays = {"Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Select a weekday")
+                .setItems(weekdays, (dialog, which) -> {
+                    String selectedWeekday = weekdays[which];
+                    if (currentMeal != null) {
+                        mealPresenter.assignMealToWeekday(currentMeal, selectedWeekday);
+                        Toast.makeText(getContext(), currentMeal.getStrMeal() + " assigned to " + selectedWeekday, Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
+    }
+
+
+
 
     @Override
     public void showDetails(Meal meal) {
@@ -136,8 +157,6 @@ public class MealFragment extends Fragment implements MealView {
         String videoFrame = "<iframe width=\"100%\" height=\"100%\" src=\"" + videoUrl + "\" frameborder=\"0\" allowfullscreen></iframe>";
         meal_video.getSettings().setJavaScriptEnabled(true);
         meal_video.loadData(videoFrame, "text/html", "utf-8");
-
-
     }
 
     @Override

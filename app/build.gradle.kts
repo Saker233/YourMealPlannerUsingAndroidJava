@@ -49,6 +49,7 @@ dependencies {
     implementation ("androidx.navigation:navigation-ui:2.8.1")
     implementation ("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")
     implementation ("com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.28")
+    implementation ("com.airbnb.android:lottie:5.0.3")
     implementation (libs.appcompat)
     implementation (libs.activity)
     implementation (libs.constraintlayout)

@@ -67,12 +67,12 @@ public class Meals_CountryFragment extends Fragment implements SearchViews {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                return false; // Handle search submission if needed
+                return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                mealAdapter.getFilter().filter(newText); // Trigger the filter
+                mealAdapter.getFilter().filter(newText);
                 return true;
             }
         });
@@ -97,6 +97,7 @@ public class Meals_CountryFragment extends Fragment implements SearchViews {
 
     @Override
     public void displayError(String message) {
+        Log.e("Meals_CountryFragment", "Error: " + message);
     }
 
     private void fetchMeals(String countryName) {
@@ -123,9 +124,15 @@ public class Meals_CountryFragment extends Fragment implements SearchViews {
 
             @Override
             public void onSuccessResult(List<Meal> meals) {
-                mealAdapter.setMeals(meals); // Set meals in adapter
-                Log.d("Meals_CountryFragment", "Meals fetched successfully");
+                if (getActivity() != null) {
+                    getActivity().runOnUiThread(() -> {
+                        mealAdapter.setMeals(meals);
+                        mealAdapter.notifyDataSetChanged();
+                        Log.d("Meals_CountryFragment", "Meals fetched successfully");
+                    });
+                }
             }
+
 
             @Override
             public void onFailureResult(String message) {

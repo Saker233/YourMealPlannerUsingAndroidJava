@@ -52,9 +52,11 @@
 
 
 
+
+
     <fragment
         android:id="@+id/nav_profile"
-        android:name="com.example.app.ui.profile.ProfileFragment"
+        android:name="com.example.yourmealplanner.Profile.view.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
 

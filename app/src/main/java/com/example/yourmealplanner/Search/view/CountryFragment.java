@@ -57,7 +57,6 @@ public class CountryFragment extends Fragment implements SearchViews, OnCountryC
         searchPresenter = new SearchPresenter(this, remote);
         searchPresenter.loadCountries();
 
-        // Initialize SearchView
         SearchView searchView = view.findViewById(R.id.searchView);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

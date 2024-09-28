@@ -37,11 +37,13 @@ public class MealsLocalDataSourceImp implements MealsLocalDataSource {
 
     @Override
     public void changeFavoriteState(Meal meal) {
-        meal.setFav(!meal.getFav());
+//        meal.setFav(!meal.getFav());
         new Thread(new Runnable() {
             @Override
             public void run() {
+                meal.setFav(true);
                 mealDao.addToFavorite(meal);
+
                 Log.d("MealRepository", "Favorite state changed for meal: " + meal.getIdMeal());
             }
         }).start();
@@ -85,6 +87,7 @@ public class MealsLocalDataSourceImp implements MealsLocalDataSource {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                meal.setFav(false);
                 mealDao.insertMeal(meal);
             }
         }).start();
@@ -95,6 +98,7 @@ public class MealsLocalDataSourceImp implements MealsLocalDataSource {
         new Thread(new Runnable() {
             @Override
             public void run() {
+
                 mealDao.insertMeals(meal);
             }
         }).start();
@@ -114,4 +118,14 @@ public class MealsLocalDataSourceImp implements MealsLocalDataSource {
         }
         return false;
     }
+    public LiveData<List<Meal>> getMealsByWeekday(String weekday) {
+        return mealDao.getMealsByWeekday(weekday);
+    }
+
+    @Override
+    public MealDao getMealDao() {
+        return mealDao;
+    }
+
+
 }

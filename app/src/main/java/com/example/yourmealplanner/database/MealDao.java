@@ -34,17 +34,23 @@ public interface MealDao {
     @Delete
     void deleteMeal(Meal meal);
 
+    @Query("SELECT * FROM Meal WHERE weekday = :weekday")
+    LiveData<List<Meal>> getMealsByWeekday(String weekday);
 
 
-//    @Query("SELECT * FROM meal WHERE isFav = true")
-//    LiveData<List<Meal>> getFavorites();
-
-    @Query("SELECT * FROM meal")
+    @Query("SELECT * FROM meal WHERE isFav = 1")
     LiveData<List<Meal>> getFavorites();
+
+//    @Query("SELECT * FROM meal")
+//    LiveData<List<Meal>> getFavorites();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addToFavorite(Meal meal);
 
 
+    @Query("SELECT * FROM Meal WHERE strArea = :countryName")
+    List<Meal> getMealsByCountry(String countryName);
 
+    @Query("SELECT * FROM Meal WHERE weekday IS NOT NULL")
+    LiveData<List<Meal>> getAllMealsWithSpecificDays();
 }

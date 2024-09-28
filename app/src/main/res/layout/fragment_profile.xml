@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/cast_expanded_controller_ad_label_background_color">
 
     <ImageButton
         android:id="@+id/btnLogOut"
@@ -18,6 +19,7 @@
         app:srcCompat="@drawable/logout" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/weekRecycler"
         android:layout_width="409dp"
         android:layout_height="608dp"
         android:layout_marginStart="1dp"

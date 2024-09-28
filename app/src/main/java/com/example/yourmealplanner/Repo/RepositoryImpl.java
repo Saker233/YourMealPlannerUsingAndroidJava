@@ -31,37 +31,37 @@ public class RepositoryImpl implements Repository {
 
     @Override
     public void getRandomMeal(NetworkCallback<Meal> callback) {
-        remoteDataSource.getRandom(new NetworkCallback<Meal>() {
-            @Override
-            public void onSuccessResult_MEAL(Meal meal) {
-                callback.onSuccessResult(meal);
-            }
-
-            @Override
-            public void onFailureResult_MEAL(String errorMsg_meal) {
-                callback.onFailureResult_MEAL(errorMsg_meal);
-            }
-
-            @Override
-            public void onSuccessResult_CAT(List<Category> categories) {
-            }
-
-            @Override
-            public void onFailureResult_CAT(String errorMsg_cat) {
-            }
-
-            @Override
-            public void onSuccessResult(Meal result) {
-
-            }
-
-            @Override
-            public void onFailureResult(String errorMessage) {
-
-            }
-
-
-        });
+//        remoteDataSource.getRandom(new NetworkCallback<Meal>() {
+//            @Override
+//            public void onSuccessResult_MEAL(Meal meal) {
+//                callback.onSuccessResult(meal);
+//            }
+//
+//            @Override
+//            public void onFailureResult_MEAL(String errorMsg_meal) {
+//                callback.onFailureResult_MEAL(errorMsg_meal);
+//            }
+//
+//            @Override
+//            public void onSuccessResult_CAT(List<Category> categories) {
+//            }
+//
+//            @Override
+//            public void onFailureResult_CAT(String errorMsg_cat) {
+//            }
+//
+//            @Override
+//            public void onSuccessResult(Meal result) {
+//
+//            }
+//
+//            @Override
+//            public void onFailureResult(String errorMessage) {
+//
+//            }
+//
+//
+//        });
     }
 
     @Override

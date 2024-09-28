@@ -43,11 +43,12 @@ public class HomeFragment extends Fragment implements  HomeView, OnCategoryClick
     private Meal randomMeal;
     private boolean isMealFetched = false;
     private boolean isMealFetched_new = false;
+    private static final String TAG = "HomeFragment";
 
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        Log.d(TAG, "onCreateView called");
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
@@ -58,12 +59,13 @@ public class HomeFragment extends Fragment implements  HomeView, OnCategoryClick
         presenter = new HomePresenter(requireContext(), this,
                 MealsLocalDataSourceImp.getInstance(requireContext()),
                 MealRemoteDataSource.getInstance(requireContext()));
+        Log.d(TAG, "onCreate called");
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        Log.d(TAG, "onViewCreated called");
         isMealFetched = false;
 
         txtInsp = view.findViewById(R.id.txtInsp);
@@ -96,7 +98,39 @@ public class HomeFragment extends Fragment implements  HomeView, OnCategoryClick
         });
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart called");
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume called");
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause called");
+    }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop called");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d(TAG, "onDestroyView called");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy called");
+    }
 
     @Override
     public void displayRandomMeal(Meal meal) {
