@@ -67,7 +67,7 @@ public class HomePresenter implements NetworkCallback<Meal> {
         Log.d("TAG", "displayRandomMeal: Meal Displayed - ID: " + meal.getIdMeal());
         isMealFetching = false;
         if (meal != null && meal.getIdMeal() != null) {
-            remote.getDetails(meal.getIdMeal(), this);
+//            remote.getDetails(meal.getIdMeal(), this);
         } else {
             view.showError("Meal ID is not available");
         }

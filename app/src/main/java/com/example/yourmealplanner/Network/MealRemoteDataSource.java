@@ -1,5 +1,7 @@
 package com.example.yourmealplanner.Network;
 
+import static androidx.core.content.ContentProviderCompat.requireContext;
+
 import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
@@ -42,6 +44,7 @@ public class MealRemoteDataSource {
 
         mealService = retrofit.create(MealService.class);
         categoryService = retrofit.create(CategoryService.class);
+        this.mealDao = AppDataBase.getInstance(context).getMealDao();
     }
 
 
@@ -92,12 +95,7 @@ public class MealRemoteDataSource {
     }
 
     public void getDetails(String id, NetworkCallback networkCallback) {
-//        if (isMealFetching) {
-//            Log.d(TAG, "Fetch already in progress.");
-//            return;
-//        }
-//
-//        isMealFetching = true;
+
         mealService.getMealDetails(id).enqueue(new Callback<MealResponse>() {
             @Override
             public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
@@ -205,6 +203,8 @@ public class MealRemoteDataSource {
             }
         });
     }
+
+
 
 
 }
