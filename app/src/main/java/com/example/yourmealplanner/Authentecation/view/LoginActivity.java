@@ -17,6 +17,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.yourmealplanner.MainActivity;
+import com.example.yourmealplanner.Network.NetworkConnection;
 import com.example.yourmealplanner.R;
 import com.example.yourmealplanner.Authentecation.model.UserDatabase;
 import com.example.yourmealplanner.Authentecation.presenter.LoginPresenter;
@@ -52,10 +53,16 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
 
         if (isUserLoggedIn()) {
-
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
             finish();
             return;
+        }
+
+        if (!NetworkConnection.isConnected(this)) {
+            btnLogin.setEnabled(false);
+            btnRegister.setEnabled(false);
+            Toast.makeText(this, "No internet connection. You can only access the Guest option.", Toast.LENGTH_SHORT).show();
         }
 
         btnLogin.setOnClickListener(v -> {
@@ -75,6 +82,13 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         txtGuest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences preferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean("isLoggedIn", false);
+                editor.putBoolean("isGuest", true);
+                editor.apply();
+
+
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
@@ -84,12 +98,19 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     private boolean isUserLoggedIn() {
         SharedPreferences preferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
-        return preferences.getBoolean("isLoggedIn", false);
+        boolean isGuest = preferences.getBoolean("isGuest", false);
+        boolean isLoggedIn = preferences.getBoolean("isLoggedIn", false);
+        return isLoggedIn || isGuest;
     }
 
 
     @Override
     public void onLoginSuccess() {
+        SharedPreferences preferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean("isLoggedIn", true);
+        editor.putBoolean("isGuest", false);
+        editor.apply();
 
         Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(LoginActivity.this, MainActivity.class));

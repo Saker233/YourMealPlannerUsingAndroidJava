@@ -41,17 +41,14 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
             String confirmPassword = edtTxtRegConPass.getText().toString().trim();
 
             if (inputPassword.equals(confirmPassword)) {
-                // Generate salt and hash the password
                 byte[] salt = PasswordUtils.generateSalt();
                 String hashedPassword = PasswordUtils.hashPassword(inputPassword, salt);
 
-                // Create User object
                 User user = new User();
                 user.setEmail(inputEmail);
                 user.setHashedPassword(hashedPassword);
                 user.setSalt(salt);
 
-                // Pass the user object to the presenter
                 presenter.register(user);
             } else {
                 Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
@@ -63,7 +60,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
     public void onRegisterSuccess() {
         runOnUiThread(() -> {
             Toast.makeText(this, "Registration successful!", Toast.LENGTH_SHORT).show();
-            finish(); // Close the activity after registration
+            finish();
         });
     }
 

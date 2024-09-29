@@ -1,5 +1,6 @@
 package com.example.yourmealplanner;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -36,16 +37,26 @@ public class MainActivity extends AppCompatActivity {
             Log.d("MainActivity", "NavHostFragment found, setting up NavController");
             navController = navHostFragment.getNavController();
 
-            // Set up BottomNavigationView with NavController
-            NavigationUI.setupWithNavController(bottomNavigationView, navController);
-            Log.d("MainActivity", "NavController set up with BottomNavigationView");
+
+            if (isUserLoggedIn()) {
+                NavigationUI.setupWithNavController(bottomNavigationView, navController);
+                Log.d("MainActivity", "NavController set up with BottomNavigationView for logged-in user");
+            } else {
+                bottomNavigationView.getMenu().clear();
+                bottomNavigationView.inflateMenu(R.menu.guest_menu);
+                NavigationUI.setupWithNavController(bottomNavigationView, navController);
+                Log.d("MainActivity", "NavController set up with BottomNavigationView for guest user");
+            }
         } else {
             Log.e("MainActivity", "NavHostFragment is null. Cannot set up NavController.");
         }
-
-
     }
 
+    private boolean isUserLoggedIn() {
+        SharedPreferences preferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
+        boolean isGuest = preferences.getBoolean("isGuest", false);
+        return !isGuest;
+    }
 }
 
 

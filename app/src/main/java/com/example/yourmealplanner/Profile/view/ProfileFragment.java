@@ -1,6 +1,9 @@
 package com.example.yourmealplanner.Profile.view;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,17 +24,20 @@ import com.example.yourmealplanner.Home.view.MealFragment;
 import com.example.yourmealplanner.Profile.presenter.ProfilePresenter;
 import com.example.yourmealplanner.R;
 import com.example.yourmealplanner.Home.model.Meal;
+import com.example.yourmealplanner.database.AppDataBase;
+import com.example.yourmealplanner.database.MealDao;
 import com.example.yourmealplanner.database.MealsLocalDataSourceImp;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProfileFragment extends Fragment implements ProfileView, OnMealClickListener {
+public class ProfileFragment extends Fragment implements ProfileView, OnMealClickListener, OnLogOutClick {
     private RecyclerView weekRecyclerView;
     private WeekMealAdapter adapter;
     private List<Meal> mealsOfTheWeek;
     private ImageButton btnLogOut;
     private ProfilePresenter presenter;
+    private MealDao mealDao;
 
     @Nullable
     @Override
@@ -46,27 +52,25 @@ public class ProfileFragment extends Fragment implements ProfileView, OnMealClic
         adapter = new WeekMealAdapter(mealsOfTheWeek, this);
         weekRecyclerView.setAdapter(adapter);
 
-        presenter = new ProfilePresenter(this, MealsLocalDataSourceImp.getInstance(getContext()).getMealDao(), getContext());
+        mealDao = AppDataBase.getInstance(requireContext()).getMealDao();
+        presenter = new ProfilePresenter(this, mealDao, requireContext(), this, this);
+
 
         presenter.getMealsForWeek();
-
-
-
-
-
 
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-                getActivity().finish();
+
+                presenter.logout();
+
             }
         });
 
         return view;
     }
+
+
 
     @Override
     public void showMealsForWeek(List<Meal> meals) {
@@ -95,5 +99,14 @@ public class ProfileFragment extends Fragment implements ProfileView, OnMealClic
     @Override
     public void onClearWeekDayClick(Meal meal) {
         presenter.removeMealFromWeek(meal);
+    }
+
+    @Override
+    public void onLogOut() {
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        getActivity().finish();
+
     }
 }
