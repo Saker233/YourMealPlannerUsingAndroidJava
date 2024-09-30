@@ -22,8 +22,8 @@ import java.util.Map;
 
 public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.CountryViewHolder> implements Filterable {
 
-    private List<Area> areas; // Original list
-    private List<Area> filteredAreas; // Filtered list
+    private List<Area> areas;
+    private List<Area> filteredAreas;
     private OnCountryClickListener listener;
     private Map<String, String> countryCodeMap = new HashMap<>();
 
@@ -43,7 +43,7 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.CountryV
 
     @Override
     public void onBindViewHolder(@NonNull CountryViewHolder holder, int position) {
-        Area area = filteredAreas.get(position); // Use filtered list
+        Area area = filteredAreas.get(position);
         holder.txtCountryName.setText(area.getAreaName());
 
         String flagUrl = getFlagUrl(area.getAreaName());

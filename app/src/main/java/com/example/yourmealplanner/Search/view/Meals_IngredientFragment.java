@@ -29,39 +29,35 @@ import com.example.yourmealplanner.Search.presenter.SearchPresenter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Meals_CountryFragment extends Fragment implements SearchViews, OnMealClickListener {
+public class Meals_IngredientFragment extends Fragment implements SearchViews, OnMealClickListener {
 
-    private RecyclerView recyclerCountry;
+    private RecyclerView recyclerIngredient;
     private MealAdapter mealAdapter;
-    private SearchPresenter searchPresenter;
     private MealRemoteDataSource mealRemoteDataSource;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.inside_search_country, container, false);
+        return inflater.inflate(R.layout.inside_search_ingredient, container, false);
     }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        recyclerCountry = view.findViewById(R.id.recyclerIngredient);
-        recyclerCountry.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerIngredient = view.findViewById(R.id.recyclerIngredient);
+        recyclerIngredient.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        mealAdapter = new MealAdapter(new ArrayList<>(), meal -> {
-
-            onMealClick(meal);
-        });
-        recyclerCountry.setAdapter(mealAdapter);
+        mealAdapter = new MealAdapter(new ArrayList<>(), this::onMealClick);
+        recyclerIngredient.setAdapter(mealAdapter);
 
         mealRemoteDataSource = MealRemoteDataSource.getInstance(getContext());
 
+        // Fetch meals by ingredient
         if (getArguments() != null) {
-            String countryName = getArguments().getString("countryName");
-            Log.d("Meals_CountryFragment", "Country name received: " + countryName);
-            fetchMeals(countryName);
+            String ingredientName = getArguments().getString("ingredientName");
+            Log.d("Meals_IngredientFragment", "Ingredient name received: " + ingredientName);
+            fetchMealsByIngredient(ingredientName);
         }
 
         SearchView searchView = view.findViewById(R.id.searchView);
@@ -79,15 +75,49 @@ public class Meals_CountryFragment extends Fragment implements SearchViews, OnMe
         });
     }
 
-    private void loadMealsByCountry(String countryName) {
-        MealRemoteDataSource remote = MealRemoteDataSource.getInstance(getContext());
-        searchPresenter = new SearchPresenter(this, remote);
-        searchPresenter.loadMealsByCountry(countryName);
+    private void fetchMealsByIngredient(String ingredientName) {
+        mealRemoteDataSource.getMealsByIngredient(ingredientName, new NetworkCallback<List<Meal>>() {
+            @Override
+            public void onSuccessResult(List<Meal> meals) {
+                if (getActivity() != null) {
+                    getActivity().runOnUiThread(() -> {
+                        mealAdapter.setMeals(meals);
+                        mealAdapter.notifyDataSetChanged();
+                        Log.d("Meals_IngredientFragment", "Meals fetched successfully for ingredient: " + ingredientName);
+                    });
+                }
+            }
+
+            @Override
+            public void onFailureResult(String message) {
+                Log.e("Meals_IngredientFragment", "Error fetching meals: " + message);
+            }
+
+            @Override
+            public void onSuccessResult_MEAL(Meal meal) {
+                // Not applicable in this context
+            }
+
+            @Override
+            public void onFailureResult_MEAL(String errorMsg_meal) {
+                // Not applicable in this context
+            }
+
+            @Override
+            public void onSuccessResult_CAT(List<Category> categories) {
+                // Not applicable in this context
+            }
+
+            @Override
+            public void onFailureResult_CAT(String errorMsg_cat) {
+                // Not applicable in this context
+            }
+        });
     }
 
     @Override
     public void displayCountries(List<Area> areas) {
-
+        // Not applicable in this context
     }
 
     @Override
@@ -98,53 +128,12 @@ public class Meals_CountryFragment extends Fragment implements SearchViews, OnMe
 
     @Override
     public void displayError(String message) {
-        Log.e("Meals_CountryFragment", "Error: " + message);
+        Log.e("Meals_IngredientFragment", "Error: " + message);
     }
 
     @Override
     public void showIngredients(List<Ingredient> ingredients) {
-
-    }
-
-    private void fetchMeals(String countryName) {
-        mealRemoteDataSource.fetchMeals(countryName, new NetworkCallback<List<Meal>>() {
-            @Override
-            public void onSuccessResult_MEAL(Meal meal) {
-
-            }
-
-            @Override
-            public void onFailureResult_MEAL(String errorMsg_meal) {
-
-            }
-
-            @Override
-            public void onSuccessResult_CAT(List<Category> categories) {
-
-            }
-
-            @Override
-            public void onFailureResult_CAT(String errorMsg_cat) {
-
-            }
-
-            @Override
-            public void onSuccessResult(List<Meal> meals) {
-                if (getActivity() != null) {
-                    getActivity().runOnUiThread(() -> {
-                        mealAdapter.setMeals(meals);
-                        mealAdapter.notifyDataSetChanged();
-                        Log.d("Meals_CountryFragment", "Meals fetched successfully");
-                    });
-                }
-            }
-
-
-            @Override
-            public void onFailureResult(String message) {
-                Log.e("Meals_CountryFragment", "Error fetching meals: " + message);
-            }
-        });
+        // Not applicable in this context
     }
 
     @Override
@@ -157,6 +146,4 @@ public class Meals_CountryFragment extends Fragment implements SearchViews, OnMe
         NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
         navController.navigate(R.id.nav_meal, bundle);
     }
-
-
 }

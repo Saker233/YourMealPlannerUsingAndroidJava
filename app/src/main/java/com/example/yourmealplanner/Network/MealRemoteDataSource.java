@@ -11,6 +11,8 @@ import com.example.yourmealplanner.Home.model.MealClient;
 import com.example.yourmealplanner.Home.view.HomeView;
 import com.example.yourmealplanner.Search.model.Area;
 import com.example.yourmealplanner.Search.model.AreaResponse;
+import com.example.yourmealplanner.Search.model.Ingredient;
+import com.example.yourmealplanner.Search.model.IngredientResponse;
 import com.example.yourmealplanner.database.AppDataBase;
 import com.example.yourmealplanner.database.MealDao;
 
@@ -204,7 +206,44 @@ public class MealRemoteDataSource {
         });
     }
 
+    public void getIngredients(NetworkCallback<List<Ingredient>> callback) {
+        mealService.getIngredients().enqueue(new Callback<IngredientResponse>() {
+            @Override
+            public void onResponse(Call<IngredientResponse> call, Response<IngredientResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<Ingredient> ingredients = response.body().getIngredients();
+                    callback.onSuccessResult(ingredients);
+                } else {
+                    callback.onFailureResult("Failed to fetch ingredients.");
+                }
+            }
 
+            @Override
+            public void onFailure(Call<IngredientResponse> call, Throwable t) {
+                callback.onFailureResult(t.getMessage());
+            }
+        });
+    }
+
+    public void getMealsByIngredient(String ingredient, NetworkCallback<List<Meal>> callback) {
+        Call<MealResponse> call = mealService.getMealsByIngredient(ingredient);
+        call.enqueue(new Callback<MealResponse>() {
+            @Override
+            public void onResponse(Call<MealResponse> call, Response<MealResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<Meal> meals = response.body().getMeals();
+                    callback.onSuccessResult(meals);
+                } else {
+                    callback.onFailureResult("Error fetching meals");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MealResponse> call, Throwable t) {
+                callback.onFailureResult(t.getMessage());
+            }
+        });
+    }
 
 
 }

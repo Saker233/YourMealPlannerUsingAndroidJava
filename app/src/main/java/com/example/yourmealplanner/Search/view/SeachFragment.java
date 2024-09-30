@@ -62,7 +62,8 @@ public class SeachFragment extends Fragment {
         btnSearchIngredient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment);
+                navController.navigate(R.id.nav_ingredient, null);
             }
         });
 
@@ -74,4 +75,6 @@ public class SeachFragment extends Fragment {
             }
         });
     }
+
+
 }

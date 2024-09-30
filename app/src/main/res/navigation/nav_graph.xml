@@ -50,8 +50,17 @@
         android:label="Category Details"
         tools:layout="@layout/category_item" />
 
+    <fragment
+        android:id="@+id/nav_ingredient"
+        android:name="com.example.yourmealplanner.Search.view.IngredientFragment"
+        android:label="Ingredient Details"
+        tools:layout="@layout/item_ingredient" />
 
-
+    <fragment
+        android:id="@+id/nav_ingredient_meals"
+        android:name="com.example.yourmealplanner.Search.view.Meals_IngredientFragment"
+        android:label="Ingredient Details"
+        tools:layout="@layout/inside_search_meal_ingredient" />
 
 
     <fragment
