@@ -39,26 +39,27 @@ public class MealsLocalDataSourceImp implements MealsLocalDataSource {
     @Override
     public void addToFavorite(Meal meal) {
         new Thread(() -> {
-
-                meal.setFav(true);
-                meal.setAssignedDate(meal.getAssignedDate());
-                mealDao.insertMeal(meal);
-
-
-
-
+            meal.setFav(true);
+            mealDao.insertMeal(meal);
         }).start();
     }
 
     @Override
     public void removeFromFavorite(Meal meal) {
         new Thread(() -> {
-
-                meal.setAssignedDate(meal.getAssignedDate());
-                meal.setFav(false);
-                mealDao.insertMeal(meal);
-
+            meal.setFav(false);
+            mealDao.insertMeal(meal);
         }).start();
+    }
+
+    @Override
+    public void clearAssignedDate(Meal meal) {
+        new Thread(() -> {
+            meal.setAssignedDate(null);
+            mealDao.insertMeal(meal);
+        }).start();
+
+
     }
 
     @Override
@@ -87,14 +88,12 @@ public class MealsLocalDataSourceImp implements MealsLocalDataSource {
     @Override
     public void addMealToDay(Meal meal) {
         new Thread(() -> {
-
-
-
-                meal.setFav(true);
+            if (meal.isFav()) {
                 meal.setAssignedDate(meal.getAssignedDate());
-                mealDao.insertMeal(meal);
-
-
+            } else {
+                meal.setAssignedDate(meal.getAssignedDate());
+            }
+            mealDao.insertMeal(meal);
         }).start();
 
     }

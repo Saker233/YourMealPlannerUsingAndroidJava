@@ -120,7 +120,7 @@ public class ProfileFragment extends Fragment implements ProfileView, OnMealClic
 
     @Override
     public void onMealDelete(Meal meal) {
-        local.deleteMeal(meal);
+        local.clearAssignedDate(meal);
         presenter.getMealsForDate(selectedDate);
     }
 

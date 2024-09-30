@@ -64,5 +64,7 @@ public interface MealsLocalDataSource {
 
     void removeFromFavorite(Meal meal);
 
+    void clearAssignedDate(Meal meal);
+
 
 }
