@@ -44,6 +44,10 @@ public class DateMealAdapter extends RecyclerView.Adapter<DateMealAdapter.DateMe
                 .override(600, 400)
                 .into(holder.mealImage);
 
+        holder.btnClearMeal.setVisibility(View.VISIBLE);
+
+
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,11 +60,11 @@ public class DateMealAdapter extends RecyclerView.Adapter<DateMealAdapter.DateMe
         holder.btnClearMeal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mealClickListener != null) {
-                    mealClickListener.onMealClick(meal);
-                }
+                mealClickListener.onMealDelete(meal);
             }
         });
+
+
     }
 
     public void updateMeals(List<Meal> newMeals) {

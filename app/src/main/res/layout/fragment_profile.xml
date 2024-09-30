@@ -29,8 +29,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/weekRecycler"
-        android:layout_width="410dp"
-        android:layout_height="211dp"
+        android:layout_width="406dp"
+        android:layout_height="283dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"

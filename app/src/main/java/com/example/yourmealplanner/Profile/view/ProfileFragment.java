@@ -43,6 +43,7 @@ public class ProfileFragment extends Fragment implements ProfileView, OnMealClic
     private MealDao mealDao;
     private MealsLocalDataSourceImp local;
     private CalendarView calendarView;
+    private String selectedDate;
 
 
     @Override
@@ -72,7 +73,7 @@ public class ProfileFragment extends Fragment implements ProfileView, OnMealClic
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-                String selectedDate = year + "-" + (month + 1) + "-" + dayOfMonth;
+                selectedDate = year + "-" + (month + 1) + "-" + dayOfMonth;
                 presenter.getMealsForDate(selectedDate);
             }
         });
@@ -118,9 +119,12 @@ public class ProfileFragment extends Fragment implements ProfileView, OnMealClic
     }
 
     @Override
-    public void onClearWeekDayClick(Meal meal) {
-        presenter.removeMealFromWeek(meal);
+    public void onMealDelete(Meal meal) {
+        local.deleteMeal(meal);
+        presenter.getMealsForDate(selectedDate);
     }
+
+
 
     @Override
     public void onLogOut() {
