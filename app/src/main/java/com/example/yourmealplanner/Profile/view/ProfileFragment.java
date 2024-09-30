@@ -2,6 +2,8 @@ package com.example.yourmealplanner.Profile.view;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -32,7 +34,9 @@ import com.example.yourmealplanner.database.MealsLocalDataSource;
 import com.example.yourmealplanner.database.MealsLocalDataSourceImp;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ProfileFragment extends Fragment implements ProfileView, OnMealClickListener, OnLogOutClick {
     private RecyclerView weekRecyclerView;
@@ -44,6 +48,7 @@ public class ProfileFragment extends Fragment implements ProfileView, OnMealClic
     private MealsLocalDataSourceImp local;
     private CalendarView calendarView;
     private String selectedDate;
+    private Button btnShowShoppingList;
 
 
     @Override
@@ -60,6 +65,7 @@ public class ProfileFragment extends Fragment implements ProfileView, OnMealClic
         btnLogOut = view.findViewById(R.id.btnLogOut);
         weekRecyclerView = view.findViewById(R.id.weekRecycler);
         calendarView = view.findViewById(R.id.calendarView);
+        btnShowShoppingList = view.findViewById(R.id.btnShowShoppingList);
 
         weekRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
@@ -87,6 +93,12 @@ public class ProfileFragment extends Fragment implements ProfileView, OnMealClic
             }
         });
 
+        btnShowShoppingList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter.showShoppingList();
+            }
+        });
         return view;
     }
 
@@ -104,7 +116,10 @@ public class ProfileFragment extends Fragment implements ProfileView, OnMealClic
         Toast.makeText(getContext(), "No meals found for this date", Toast.LENGTH_SHORT).show();
     }
 
-
+    @Override
+    public void displayAggregatedIngredients(Map<String, Integer> ingredientsMap) {
+        showAlertDialog(ingredientsMap);
+    }
 
 
     @Override
@@ -120,8 +135,14 @@ public class ProfileFragment extends Fragment implements ProfileView, OnMealClic
 
     @Override
     public void onMealDelete(Meal meal) {
-        local.clearAssignedDate(meal);
-        presenter.getMealsForDate(selectedDate);
+        if(meal.isFav) {
+            local.clearAssignedDate(meal);
+            presenter.getMealsForDate(selectedDate);
+        } else {
+            local.deleteMeal(meal);
+        }
+
+
     }
 
 
@@ -134,4 +155,25 @@ public class ProfileFragment extends Fragment implements ProfileView, OnMealClic
         getActivity().finish();
 
     }
+
+
+
+
+    private void showAlertDialog(Map<String, Integer> ingredientMap) {
+        StringBuilder message = new StringBuilder("Shopping List:\n");
+
+        for (Map.Entry<String, Integer> entry : ingredientMap.entrySet()) {
+            message.append(entry.getKey()).append(": ").append(entry.getValue()).append("\n");
+        }
+
+        AlertDialog alertDialog = new AlertDialog.Builder(getContext())
+                .setTitle("Shopping List")
+                .setMessage(message.toString())
+                .setPositiveButton("OK", null)
+                .create();
+
+        alertDialog.show();
+    }
+
+
 }

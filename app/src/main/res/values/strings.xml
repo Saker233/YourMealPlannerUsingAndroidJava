@@ -38,4 +38,5 @@
     <string name="nonetwork">No Network ?</string>
     <string name="network">No Network Connection?</string>
     <string name="clear">Clear From Plan</string>
+    <string name="shoopinglist">Show My Shopping List</string>
 </resources>

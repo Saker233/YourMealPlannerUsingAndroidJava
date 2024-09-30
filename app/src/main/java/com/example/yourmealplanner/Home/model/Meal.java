@@ -4,6 +4,9 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity(tableName = "meal")
 public class Meal {
 
@@ -99,6 +102,77 @@ public class Meal {
     @ColumnInfo(name = "assignedDate")
     private String assignedDate;
 
+    @ColumnInfo(name = "strDrinkAlternate")
+    public String strDrinkAlternate;
+
+    @ColumnInfo(name = "strTags")
+    public String strTags;
+
+    @ColumnInfo(name = "strMeasure1")
+    public String strMeasure1;
+
+    @ColumnInfo(name = "strMeasure2")
+    public String strMeasure2;
+
+    @ColumnInfo(name = "strMeasure3")
+    public String strMeasure3;
+
+    @ColumnInfo(name = "strMeasure4")
+    public String strMeasure4;
+
+    @ColumnInfo(name = "strMeasure5")
+    public String strMeasure5;
+
+    @ColumnInfo(name = "strMeasure6")
+    public String strMeasure6;
+
+    @ColumnInfo(name = "strMeasure7")
+    public String strMeasure7;
+
+    @ColumnInfo(name = "strMeasure8")
+    public String strMeasure8;
+
+    @ColumnInfo(name = "strMeasure9")
+    public String strMeasure9;
+
+    @ColumnInfo(name = "strMeasure10")
+    public String strMeasure10;
+
+    @ColumnInfo(name = "strMeasure11")
+    public String strMeasure11;
+
+    @ColumnInfo(name = "strMeasure12")
+    public String strMeasure12;
+
+    @ColumnInfo(name = "strMeasure13")
+    public String strMeasure13;
+
+    @ColumnInfo(name = "strMeasure14")
+    public String strMeasure14;
+
+    @ColumnInfo(name = "strMeasure15")
+    public String strMeasure15;
+
+    @ColumnInfo(name = "strMeasure16")
+    public String strMeasure16;
+
+    @ColumnInfo(name = "strMeasure17")
+    public String strMeasure17;
+
+    @ColumnInfo(name = "strMeasure18")
+    public String strMeasure18;
+
+    @ColumnInfo(name = "strMeasure19")
+    public String strMeasure19;
+
+    @ColumnInfo(name = "strMeasure20")
+    public String strMeasure20;
+
+
+
+
+
+
     public String getAssignedDate() {
         return assignedDate;
     }
@@ -122,7 +196,6 @@ public class Meal {
     public String getStrIngredients() {
         StringBuilder ingredients = new StringBuilder();
 
-        // Add each ingredient if it's not null or empty
         if (strIngredient1 != null && !strIngredient1.isEmpty()) ingredients.append(strIngredient1).append("\n");
         if (strIngredient2 != null && !strIngredient2.isEmpty()) ingredients.append(strIngredient2).append("\n");
         if (strIngredient3 != null && !strIngredient3.isEmpty()) ingredients.append(strIngredient3).append("\n");
@@ -146,6 +219,33 @@ public class Meal {
 
 
         return ingredients.toString().trim();
+    }
+
+    public String[] getIngredients() {
+        List<String> ingredientsList = new ArrayList<>();
+
+        if (strIngredient1 != null && !strIngredient1.isEmpty()) ingredientsList.add(strIngredient1);
+        if (strIngredient2 != null && !strIngredient2.isEmpty()) ingredientsList.add(strIngredient2);
+        if (strIngredient3 != null && !strIngredient3.isEmpty()) ingredientsList.add(strIngredient3);
+        if (strIngredient4 != null && !strIngredient4.isEmpty()) ingredientsList.add(strIngredient4);
+        if (strIngredient5 != null && !strIngredient5.isEmpty()) ingredientsList.add(strIngredient5);
+        if (strIngredient6 != null && !strIngredient6.isEmpty()) ingredientsList.add(strIngredient6);
+        if (strIngredient7 != null && !strIngredient7.isEmpty()) ingredientsList.add(strIngredient7);
+        if (strIngredient8 != null && !strIngredient8.isEmpty()) ingredientsList.add(strIngredient8);
+        if (strIngredient9 != null && !strIngredient9.isEmpty()) ingredientsList.add(strIngredient9);
+        if (strIngredient10 != null && !strIngredient10.isEmpty()) ingredientsList.add(strIngredient10);
+        if (strIngredient11 != null && !strIngredient11.isEmpty()) ingredientsList.add(strIngredient11);
+        if (strIngredient12 != null && !strIngredient12.isEmpty()) ingredientsList.add(strIngredient12);
+        if (strIngredient13 != null && !strIngredient13.isEmpty()) ingredientsList.add(strIngredient13);
+        if (strIngredient14 != null && !strIngredient14.isEmpty()) ingredientsList.add(strIngredient14);
+        if (strIngredient15 != null && !strIngredient15.isEmpty()) ingredientsList.add(strIngredient15);
+        if (strIngredient16 != null && !strIngredient16.isEmpty()) ingredientsList.add(strIngredient16);
+        if (strIngredient17 != null && !strIngredient17.isEmpty()) ingredientsList.add(strIngredient17);
+        if (strIngredient18 != null && !strIngredient18.isEmpty()) ingredientsList.add(strIngredient18);
+        if (strIngredient19 != null && !strIngredient19.isEmpty()) ingredientsList.add(strIngredient19);
+        if (strIngredient20 != null && !strIngredient20.isEmpty()) ingredientsList.add(strIngredient20);
+
+        return ingredientsList.toArray(new String[0]);
     }
 
     public boolean getFav() {
@@ -381,6 +481,182 @@ public class Meal {
                 ", strMeal='" + strMeal + '\'' +
                 ", isFav=" + isFav +
                 '}';
+    }
+
+    public String getStrDrinkAlternate() {
+        return strDrinkAlternate;
+    }
+
+    public void setStrDrinkAlternate(String strDrinkAlternate) {
+        this.strDrinkAlternate = strDrinkAlternate;
+    }
+
+    public String getStrMeasure10() {
+        return strMeasure10;
+    }
+
+    public void setStrMeasure10(String strMeasure10) {
+        this.strMeasure10 = strMeasure10;
+    }
+
+    public String getStrMeasure11() {
+        return strMeasure11;
+    }
+
+    public void setStrMeasure11(String strMeasure11) {
+        this.strMeasure11 = strMeasure11;
+    }
+
+    public String getStrMeasure12() {
+        return strMeasure12;
+    }
+
+    public void setStrMeasure12(String strMeasure12) {
+        this.strMeasure12 = strMeasure12;
+    }
+
+    public String getStrMeasure13() {
+        return strMeasure13;
+    }
+
+    public void setStrMeasure13(String strMeasure13) {
+        this.strMeasure13 = strMeasure13;
+    }
+
+    public String getStrMeasure14() {
+        return strMeasure14;
+    }
+
+    public void setStrMeasure14(String strMeasure14) {
+        this.strMeasure14 = strMeasure14;
+    }
+
+    public String getStrMeasure15() {
+        return strMeasure15;
+    }
+
+    public void setStrMeasure15(String strMeasure15) {
+        this.strMeasure15 = strMeasure15;
+    }
+
+    public String getStrMeasure16() {
+        return strMeasure16;
+    }
+
+    public void setStrMeasure16(String strMeasure16) {
+        this.strMeasure16 = strMeasure16;
+    }
+
+    public String getStrMeasure17() {
+        return strMeasure17;
+    }
+
+    public void setStrMeasure17(String strMeasure17) {
+        this.strMeasure17 = strMeasure17;
+    }
+
+    public String getStrMeasure18() {
+        return strMeasure18;
+    }
+
+    public void setStrMeasure18(String strMeasure18) {
+        this.strMeasure18 = strMeasure18;
+    }
+
+    public String getStrMeasure19() {
+        return strMeasure19;
+    }
+
+    public void setStrMeasure19(String strMeasure19) {
+        this.strMeasure19 = strMeasure19;
+    }
+
+    public String getStrMeasure1() {
+        return strMeasure1;
+    }
+
+    public void setStrMeasure1(String strMeasure1) {
+        this.strMeasure1 = strMeasure1;
+    }
+
+    public String getStrMeasure20() {
+        return strMeasure20;
+    }
+
+    public void setStrMeasure20(String strMeasure20) {
+        this.strMeasure20 = strMeasure20;
+    }
+
+    public String getStrMeasure2() {
+        return strMeasure2;
+    }
+
+    public void setStrMeasure2(String strMeasure2) {
+        this.strMeasure2 = strMeasure2;
+    }
+
+    public String getStrMeasure3() {
+        return strMeasure3;
+    }
+
+    public void setStrMeasure3(String strMeasure3) {
+        this.strMeasure3 = strMeasure3;
+    }
+
+    public String getStrMeasure4() {
+        return strMeasure4;
+    }
+
+    public void setStrMeasure4(String strMeasure4) {
+        this.strMeasure4 = strMeasure4;
+    }
+
+    public String getStrMeasure5() {
+        return strMeasure5;
+    }
+
+    public void setStrMeasure5(String strMeasure5) {
+        this.strMeasure5 = strMeasure5;
+    }
+
+    public String getStrMeasure6() {
+        return strMeasure6;
+    }
+
+    public void setStrMeasure6(String strMeasure6) {
+        this.strMeasure6 = strMeasure6;
+    }
+
+    public String getStrMeasure7() {
+        return strMeasure7;
+    }
+
+    public void setStrMeasure7(String strMeasure7) {
+        this.strMeasure7 = strMeasure7;
+    }
+
+    public String getStrMeasure8() {
+        return strMeasure8;
+    }
+
+    public void setStrMeasure8(String strMeasure8) {
+        this.strMeasure8 = strMeasure8;
+    }
+
+    public String getStrMeasure9() {
+        return strMeasure9;
+    }
+
+    public void setStrMeasure9(String strMeasure9) {
+        this.strMeasure9 = strMeasure9;
+    }
+
+    public String getStrTags() {
+        return strTags;
+    }
+
+    public void setStrTags(String strTags) {
+        this.strTags = strTags;
     }
 }
 

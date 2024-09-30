@@ -192,15 +192,47 @@ public class MealFragment extends Fragment implements MealView {
         currentMeal = meal;
         mealName.setText(meal.getStrMeal());
         Glide.with(requireContext()).load(meal.getStrMealThumb()).into(mealImage);
-        txtIngredient.setText(meal.getStrIngredients());
+//        txtIngredient.setText(meal.getStrIngredients());
         txtSteps.setText((meal.getStrInstructions()));
 
+        StringBuilder ingredientsWithMeasurements = new StringBuilder();
+        addIngredientToList(ingredientsWithMeasurements, meal.getStrIngredient1(), meal.getStrMeasure1());
+        addIngredientToList(ingredientsWithMeasurements, meal.getStrIngredient2(), meal.getStrMeasure2());
+        addIngredientToList(ingredientsWithMeasurements, meal.getStrIngredient3(), meal.getStrMeasure3());
+        addIngredientToList(ingredientsWithMeasurements, meal.getStrIngredient4(), meal.getStrMeasure4());
+        addIngredientToList(ingredientsWithMeasurements, meal.getStrIngredient5(), meal.getStrMeasure5());
+        addIngredientToList(ingredientsWithMeasurements, meal.getStrIngredient6(), meal.getStrMeasure6());
+        addIngredientToList(ingredientsWithMeasurements, meal.getStrIngredient7(), meal.getStrMeasure7());
+        addIngredientToList(ingredientsWithMeasurements, meal.getStrIngredient8(), meal.getStrMeasure8());
+        addIngredientToList(ingredientsWithMeasurements, meal.getStrIngredient9(), meal.getStrMeasure9());
+        addIngredientToList(ingredientsWithMeasurements, meal.getStrIngredient10(), meal.getStrMeasure10());
+        addIngredientToList(ingredientsWithMeasurements, meal.getStrIngredient11(), meal.getStrMeasure11());
+        addIngredientToList(ingredientsWithMeasurements, meal.getStrIngredient12(), meal.getStrMeasure12());
+        addIngredientToList(ingredientsWithMeasurements, meal.getStrIngredient13(), meal.getStrMeasure13());
+        addIngredientToList(ingredientsWithMeasurements, meal.getStrIngredient14(), meal.getStrMeasure14());
+        addIngredientToList(ingredientsWithMeasurements, meal.getStrIngredient15(), meal.getStrMeasure15());
+        addIngredientToList(ingredientsWithMeasurements, meal.getStrIngredient16(), meal.getStrMeasure16());
+        addIngredientToList(ingredientsWithMeasurements, meal.getStrIngredient17(), meal.getStrMeasure17());
+        addIngredientToList(ingredientsWithMeasurements, meal.getStrIngredient18(), meal.getStrMeasure18());
+        addIngredientToList(ingredientsWithMeasurements, meal.getStrIngredient19(), meal.getStrMeasure19());
+        addIngredientToList(ingredientsWithMeasurements, meal.getStrIngredient20(), meal.getStrMeasure20());
+
+        txtIngredient.setText(ingredientsWithMeasurements.toString());
 
         meal_video.setVisibility(View.VISIBLE);
         String videoUrl = meal.getStrYoutube().replace("watch?v=", "embed/");
         String videoFrame = "<iframe width=\"100%\" height=\"100%\" src=\"" + videoUrl + "\" frameborder=\"0\" allowfullscreen></iframe>";
         meal_video.getSettings().setJavaScriptEnabled(true);
         meal_video.loadData(videoFrame, "text/html", "utf-8");
+    }
+
+    private void addIngredientToList(StringBuilder sb, String ingredient, String measure) {
+        if (ingredient != null && !ingredient.isEmpty() && !ingredient.equals("null")) {
+            sb.append(measure != null && !measure.isEmpty() && !measure.equals("null") ? measure : "")
+                    .append(" ")
+                    .append(ingredient)
+                    .append("\n");
+        }
     }
 
     @Override

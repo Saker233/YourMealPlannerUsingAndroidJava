@@ -16,8 +16,8 @@
             android:id="@+id/txtIngredients2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="18dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
             android:text="@string/steps"
             android:textSize="26sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +27,8 @@
             android:id="@+id/txtSteps"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="11dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="24dp"
             android:fontFamily="casual"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtIngredients2"
@@ -49,10 +50,7 @@
             android:id="@+id/meal_image"
             android:layout_width="419dp"
             android:layout_height="170dp"
-            android:layout_marginTop="40dp"
             android:scaleType="fitCenter"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/meal_name"
             app:srcCompat="@drawable/ic_launcher_background" />
@@ -61,51 +59,54 @@
             android:id="@+id/webView"
             android:layout_width="match_parent"
             android:layout_height="222dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="30dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/meal_image" />
+            app:layout_constraintTop_toBottomOf="@+id/txtSteps" />
 
         <TextView
             android:id="@+id/txtIngredients"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="13dp"
+            android:layout_marginStart="5dp"
             android:text="@string/Ingredients"
             android:textSize="26sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/webView" />
+            app:layout_constraintTop_toBottomOf="@+id/btnFav" />
 
         <TextView
             android:id="@+id/txtIngredient"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="25dp"
             android:fontFamily="casual"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtIngredients"
             tools:text="Dummy Details" />
 
         <Button
-            android:id="@+id/btnFav"
-            android:layout_width="186dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="27dp"
-            android:backgroundTint="#009688"
-            android:text="@string/addtoFav"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtSteps" />
-
-        <Button
             android:id="@+id/btnWeek"
-            android:layout_width="0dp"
+            android:layout_width="194dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="9dp"
+            android:layout_marginEnd="18dp"
             android:backgroundTint="#009688"
             android:text="@string/addtoweek"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btnFav"
-            app:layout_constraintTop_toTopOf="@+id/btnFav" />
+            app:layout_constraintStart_toEndOf="@+id/btnFav"
+            app:layout_constraintTop_toBottomOf="@+id/meal_image" />
+
+        <Button
+            android:id="@+id/btnFav"
+            android:layout_width="186dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="9dp"
+            android:backgroundTint="#009688"
+            android:text="@string/addtoFav"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/meal_image" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

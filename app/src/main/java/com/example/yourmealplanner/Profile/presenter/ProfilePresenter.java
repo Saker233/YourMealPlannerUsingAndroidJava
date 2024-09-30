@@ -20,8 +20,10 @@ import com.example.yourmealplanner.database.MealsLocalDataSourceImp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class ProfilePresenter {
     private final ProfileView view;
@@ -41,7 +43,17 @@ public class ProfilePresenter {
     }
 
 
-
+    public void showShoppingList() {
+        LiveData<List<Meal>> mealsLiveData = mealDao.getAllMeals();
+        mealsLiveData.observe(lifecycleOwner, meals -> {
+            if (meals != null && !meals.isEmpty()) {
+                Map<String, Integer> aggregatedIngredients = aggregateIngredients(meals);
+                view.displayAggregatedIngredients(aggregatedIngredients);
+            } else {
+                view.showNoMealsMessage();
+            }
+        });
+    }
 
 
     public void getMealsForDate(String selectedDate) {
@@ -87,5 +99,22 @@ public class ProfilePresenter {
         editor.apply();
 
         logOutClickListener.onLogOut();
+    }
+
+    private Map<String, Integer> aggregateIngredients(List<Meal> meals) {
+        Map<String, Integer> ingredientMap = new HashMap<>();
+
+        for (Meal meal : meals) {
+            String ingredientsStr = meal.getStrIngredients();
+            String[] ingredients = ingredientsStr.split("\n");
+
+            for (String ingredient : ingredients) {
+                if (!ingredient.trim().isEmpty()) {
+                    ingredientMap.put(ingredient.trim(), ingredientMap.getOrDefault(ingredient.trim(), 0) + 1);
+                }
+            }
+        }
+
+        return ingredientMap;
     }
 }
