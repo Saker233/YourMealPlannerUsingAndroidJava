@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.yourmealplanner.Home.model.Meal;
 
@@ -20,7 +21,7 @@ public class MealsLocalDataSourceImp implements MealsLocalDataSource {
     private LiveData<List<Meal>> meals;
 
 
-    public MealsLocalDataSourceImp(Context context) {
+    private MealsLocalDataSourceImp(Context context) {
         AppDataBase db = AppDataBase.getInstance(context.getApplicationContext());
         mealDao = db.getMealDao();
         meals = mealDao.getAllMeals();
@@ -36,18 +37,42 @@ public class MealsLocalDataSourceImp implements MealsLocalDataSource {
 
 
     @Override
-    public void changeFavoriteState(Meal meal) {
-//        meal.setFav(!meal.getFav());
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                meal.setFav(true);
-                mealDao.addToFavorite(meal);
+    public void addToFavorite(Meal meal) {
+        new Thread(() -> {
 
-                Log.d("MealRepository", "Favorite state changed for meal: " + meal.getIdMeal());
+                meal.setFav(true);
+                meal.setAssignedDate(meal.getAssignedDate());
+                mealDao.insertMeal(meal);
+
+
+
+
+        }).start();
+    }
+
+    @Override
+    public void removeFromFavorite(Meal meal) {
+        new Thread(() -> {
+
+                meal.setAssignedDate(meal.getAssignedDate());
+                meal.setFav(false);
+                mealDao.insertMeal(meal);
+
+        }).start();
+    }
+
+    @Override
+    public void changeFavoriteState(Meal meal) {
+        new Thread(() -> {
+            Meal currentMeal = mealDao.getMealById(meal.getIdMeal()).getValue();
+            if (currentMeal != null) {
+                currentMeal.setFav(!currentMeal.isFav());
+                mealDao.insertMeal(currentMeal);
+                Log.d(TAG, "Favorite state changed for meal: " + meal.getIdMeal());
+            } else {
+                Log.e(TAG, "Meal not found in database for ID: " + meal.getIdMeal());
             }
         }).start();
-
     }
 
     @Override
@@ -59,11 +84,21 @@ public class MealsLocalDataSourceImp implements MealsLocalDataSource {
             }
         }).start();
     }
-
     @Override
-    public void updateMeal(Meal meal) {
+    public void addMealToDay(Meal meal) {
+        new Thread(() -> {
+
+
+
+                meal.setFav(true);
+                meal.setAssignedDate(meal.getAssignedDate());
+                mealDao.insertMeal(meal);
+
+
+        }).start();
 
     }
+
 
 
     @Override
@@ -73,12 +108,12 @@ public class MealsLocalDataSourceImp implements MealsLocalDataSource {
 
     @Override
     public LiveData<List<Meal>> getAllMeals() {
-        return null;
+        return mealDao.getAllMeals();
     }
 
     @Override
     public LiveData<Meal> getSingleMeal(String id) {
-        return null;
+        return mealDao.getMealById(id);
     }
 
 
@@ -87,7 +122,7 @@ public class MealsLocalDataSourceImp implements MealsLocalDataSource {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                meal.setFav(false);
+
                 mealDao.insertMeal(meal);
             }
         }).start();
@@ -106,16 +141,6 @@ public class MealsLocalDataSourceImp implements MealsLocalDataSource {
 
     public boolean isFavorite(String mealId) {
         LiveData<List<Meal>> favoritesLiveData = mealDao.getFavorites();
-
-        List<Meal> favorites = favoritesLiveData.getValue();
-
-        if (favorites != null) {
-            for (Meal meal : favorites) {
-                if (meal.getIdMeal().equals(mealId)) {
-                    return true;
-                }
-            }
-        }
         return false;
     }
     public LiveData<List<Meal>> getMealsByWeekday(String weekday) {

@@ -9,7 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,6 +28,7 @@ import com.example.yourmealplanner.R;
 import com.example.yourmealplanner.Home.model.Meal;
 import com.example.yourmealplanner.database.AppDataBase;
 import com.example.yourmealplanner.database.MealDao;
+import com.example.yourmealplanner.database.MealsLocalDataSource;
 import com.example.yourmealplanner.database.MealsLocalDataSourceImp;
 
 import java.util.ArrayList;
@@ -33,11 +36,21 @@ import java.util.List;
 
 public class ProfileFragment extends Fragment implements ProfileView, OnMealClickListener, OnLogOutClick {
     private RecyclerView weekRecyclerView;
-    private WeekMealAdapter adapter;
+    private DateMealAdapter adapter;
     private List<Meal> mealsOfTheWeek;
     private ImageButton btnLogOut;
     private ProfilePresenter presenter;
     private MealDao mealDao;
+    private MealsLocalDataSourceImp local;
+    private CalendarView calendarView;
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+
+    }
 
     @Nullable
     @Override
@@ -45,18 +58,24 @@ public class ProfileFragment extends Fragment implements ProfileView, OnMealClic
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         btnLogOut = view.findViewById(R.id.btnLogOut);
         weekRecyclerView = view.findViewById(R.id.weekRecycler);
-        weekRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        calendarView = view.findViewById(R.id.calendarView);
+
+        weekRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
         mealsOfTheWeek = new ArrayList<>();
-
-        adapter = new WeekMealAdapter(mealsOfTheWeek, this);
+        adapter = new DateMealAdapter(new ArrayList<>(), this);
         weekRecyclerView.setAdapter(adapter);
 
         mealDao = AppDataBase.getInstance(requireContext()).getMealDao();
-        presenter = new ProfilePresenter(this, mealDao, requireContext(), this, this);
-
-
-        presenter.getMealsForWeek();
+        local = MealsLocalDataSourceImp.getInstance(requireContext());
+        presenter = new ProfilePresenter(this, mealDao, local, requireContext(), this, this);
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+                String selectedDate = year + "-" + (month + 1) + "-" + dayOfMonth;
+                presenter.getMealsForDate(selectedDate);
+            }
+        });
 
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,18 +91,20 @@ public class ProfileFragment extends Fragment implements ProfileView, OnMealClic
 
 
 
+
+
     @Override
-    public void showMealsForWeek(List<Meal> meals) {
-//        WeekMealAdapter adapter = new WeekMealAdapter(meals, this);
-//        weekRecyclerView.setAdapter(adapter);
-        mealsOfTheWeek.clear();
-        mealsOfTheWeek.addAll(meals);
-        adapter.notifyDataSetChanged();
+    public void showMealsForDate(List<Meal> meals) {
+        adapter.updateMeals(meals);
     }
 
     @Override
-    public void showError(String message) {
+    public void showNoMealsMessage() {
+        Toast.makeText(getContext(), "No meals found for this date", Toast.LENGTH_SHORT).show();
     }
+
+
+
 
     @Override
     public void onMealClick(Meal meal) {

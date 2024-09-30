@@ -51,7 +51,7 @@ public class FavoritePresenter {
     }
 
     public void removeFavorite(Meal meal) {
-        local.deleteMeal(meal);
+        local.removeFromFavorite(meal);
         view.showError("Meal removed from favorites");
     }
 }

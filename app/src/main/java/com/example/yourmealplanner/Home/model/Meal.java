@@ -96,6 +96,17 @@ public class Meal {
     @ColumnInfo(name = "weekday")
     public String weekday = null;
 
+    @ColumnInfo(name = "assignedDate")
+    private String assignedDate;
+
+    public String getAssignedDate() {
+        return assignedDate;
+    }
+
+    public void setAssignedDate(String assignedDate) {
+        this.assignedDate = assignedDate;
+    }
+
     public boolean isFav() {
         return isFav;
     }
@@ -360,6 +371,16 @@ public class Meal {
 
     public void setStrYoutube(String strYoutube) {
         this.strYoutube = strYoutube;
+    }
+
+    @Override
+    public String toString() {
+        return "Meal{" +
+                "assignedDate='" + assignedDate + '\'' +
+                ", idMeal='" + idMeal + '\'' +
+                ", strMeal='" + strMeal + '\'' +
+                ", isFav=" + isFav +
+                '}';
     }
 }
 

@@ -19,10 +19,10 @@ import retrofit2.http.GET;
 @Dao
 public interface MealDao {
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertMeal(Meal meal);
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertMeals(List<Meal> meal);
 
     @Query("SELECT * FROM meal")
@@ -53,4 +53,7 @@ public interface MealDao {
 
     @Query("SELECT * FROM Meal WHERE weekday IS NOT NULL")
     LiveData<List<Meal>> getAllMealsWithSpecificDays();
+
+    @Query("SELECT * FROM Meal WHERE assignedDate = :selectedDate")
+    LiveData<List<Meal>> getMealsByDate(String selectedDate);
 }

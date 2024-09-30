@@ -6,11 +6,20 @@
     android:layout_height="match_parent"
     android:background="@color/cast_expanded_controller_ad_label_background_color">
 
+    <CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="411dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogOut" />
+
     <ImageButton
         android:id="@+id/btnLogOut"
         android:layout_width="146dp"
         android:layout_height="85dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="16dp"
         android:scaleType="centerInside"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -20,10 +29,10 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/weekRecycler"
-        android:layout_width="409dp"
-        android:layout_height="608dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
+        android:layout_width="410dp"
+        android:layout_height="211dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogOut" />
+        app:layout_constraintTop_toBottomOf="@+id/calendarView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

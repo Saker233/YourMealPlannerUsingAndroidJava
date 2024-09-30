@@ -58,7 +58,11 @@ public interface MealsLocalDataSource {
      * Updates an existing meal in the database.
      * @param meal The meal to be updated.
      */
-    void updateMeal(Meal meal);
+    void addMealToDay(Meal meal);
+
+    void addToFavorite(Meal meal);
+
+    void removeFromFavorite(Meal meal);
 
 
 }

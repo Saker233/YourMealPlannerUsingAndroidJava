@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,7 +32,11 @@ import com.example.yourmealplanner.database.MealsLocalDataSourceImp;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.YouTubePlayerUtils;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class MealFragment extends Fragment implements MealView {
 
@@ -55,7 +60,7 @@ public class MealFragment extends Fragment implements MealView {
         AppDataBase db = AppDataBase.getInstance(getContext());
         MealDao mealDao = db.getMealDao();
         remoteDataSource = MealRemoteDataSource.getInstance(getContext());
-        local = new MealsLocalDataSourceImp(getContext());
+        local =  MealsLocalDataSourceImp.getInstance(getContext());
 
         mealPresenter = new MealPresenterImp(this, local, remoteDataSource);
 
@@ -91,7 +96,7 @@ public class MealFragment extends Fragment implements MealView {
             public void onChanged(List<Meal> meals) {
                 favoriteMeals = meals;
                 if (currentMeal != null) {
-                    btnFav.setText(isMealFavorite(currentMeal) ? "Remove from Favorites" : "Add to Favorites");
+//                    btnFav.setText(isMealFavorite(currentMeal) ? "Remove from Favorites" : "Add to Favorites");
                 }
             }
         });
@@ -114,7 +119,7 @@ public class MealFragment extends Fragment implements MealView {
 
         btnWeek.setOnClickListener(view1 -> {
             if (currentMeal != null) {
-                showMealSelectionDialog();
+                showCalendarDialog();
                 Toast.makeText(getContext(), "Meal details LOADED", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(getContext(), "Meal details not loaded yet", Toast.LENGTH_SHORT).show();
@@ -142,7 +147,44 @@ public class MealFragment extends Fragment implements MealView {
                 .show();
     }
 
+    private void showCalendarDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        LayoutInflater inflater = getLayoutInflater();
 
+        View dialogView = inflater.inflate(R.layout.dialog_calendar, null);
+        CalendarView calendarView = dialogView.findViewById(R.id.calendarView);
+
+        long todayInMillis = System.currentTimeMillis();
+
+        calendarView.setMinDate(todayInMillis);
+
+        final long[] selectedDate = new long[1];
+
+        calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(year, month, dayOfMonth);
+            selectedDate[0] = calendar.getTimeInMillis();
+            Log.d("CalendarSelection", "Date selected: " + selectedDate[0]);
+        });
+
+        builder.setView(dialogView)
+                .setTitle("Select a date")
+                .setPositiveButton("OK", (dialog, which) -> {
+                    if (currentMeal != null && selectedDate[0] != 0) {
+                        Date selected = new Date(selectedDate[0]);
+
+                        mealPresenter.assignMealToDate(currentMeal, selected);
+
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                        String formattedDate = sdf.format(selected);
+                        Toast.makeText(getContext(), currentMeal.getStrMeal() + " assigned to " + formattedDate, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getContext(), "Please select a valid date", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
+    }
 
 
     @Override

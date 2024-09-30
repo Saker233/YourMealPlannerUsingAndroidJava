@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,35 +16,33 @@ import com.example.yourmealplanner.R;
 
 import java.util.List;
 
-public class WeekMealAdapter extends RecyclerView.Adapter<WeekMealAdapter.WeekMealViewHolder> {
+public class DateMealAdapter extends RecyclerView.Adapter<DateMealAdapter.DateMealViewHolder> {
 
     private List<Meal> meals;
     private OnMealClickListener mealClickListener;
 
-
-    public WeekMealAdapter(List<Meal> meals, OnMealClickListener mealClickListener) {
+    public DateMealAdapter(List<Meal> meals, OnMealClickListener mealClickListener) {
         this.meals = meals;
         this.mealClickListener = mealClickListener;
     }
 
     @NonNull
     @Override
-    public WeekMealViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public DateMealViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_week, parent, false);
-        return new WeekMealViewHolder(view);
+        return new DateMealViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull WeekMealViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DateMealViewHolder holder, int position) {
         Meal meal = meals.get(position);
-        holder.dayName.setText(meal.getWeekday());
-        holder.mealDayName.setText(meal.getStrMeal());
-
+        holder.mealName.setText(meal.getStrMeal());
+        holder.mealDate.setText(meal.getAssignedDate());
 
         Glide.with(holder.itemView.getContext())
                 .load(meal.getStrMealThumb())
                 .override(600, 400)
-                .into(holder.dayImage);
+                .into(holder.mealImage);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,34 +53,38 @@ public class WeekMealAdapter extends RecyclerView.Adapter<WeekMealAdapter.WeekMe
             }
         });
 
-        holder.btnClearWeekDay.setOnClickListener(new View.OnClickListener() {
+        holder.btnClearMeal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (mealClickListener != null) {
-                    mealClickListener.onClearWeekDayClick(meal);
+                    mealClickListener.onMealClick(meal);
                 }
             }
         });
-
-
     }
 
+    public void updateMeals(List<Meal> newMeals) {
+        this.meals.clear();
+        this.meals.addAll(newMeals);
+        notifyDataSetChanged();
+    }
 
     @Override
     public int getItemCount() {
         return meals.size();
     }
 
-    static class WeekMealViewHolder extends RecyclerView.ViewHolder {
-        TextView dayName, mealDayName;
-        ImageView dayImage;
-        Button btnClearWeekDay;
-        public WeekMealViewHolder(@NonNull View itemView) {
+    static class DateMealViewHolder extends RecyclerView.ViewHolder {
+        TextView mealName, mealDate;
+        ImageView mealImage;
+        Button btnClearMeal;
+
+        public DateMealViewHolder(@NonNull View itemView) {
             super(itemView);
-            dayName = itemView.findViewById(R.id.dayName);
-            mealDayName = itemView.findViewById(R.id.mealDayName);
-            dayImage = itemView.findViewById(R.id.dayImage);
-            btnClearWeekDay =  itemView.findViewById(R.id.btnClearWeekDay);
+            mealName = itemView.findViewById(R.id.mealName);
+            mealDate = itemView.findViewById(R.id.mealDate);
+            mealImage = itemView.findViewById(R.id.mealImage);
+            btnClearMeal = itemView.findViewById(R.id.btnClearMeal);
         }
     }
 }

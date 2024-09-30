@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 
 import com.example.yourmealplanner.Home.model.Meal;
 
+import java.util.Date;
 import java.util.List;
 
 public interface MealPresenter {
@@ -16,6 +17,9 @@ public interface MealPresenter {
 
     void assignMealToWeekday(Meal meal, String weekday);
 
+
     LiveData<List<Meal>> getMealsForWeekday(String weekday);
+
+    void assignMealToDate(Meal meal, Date date);
 
 }

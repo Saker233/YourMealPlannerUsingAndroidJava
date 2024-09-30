@@ -7,29 +7,29 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/dayName"
-        android:layout_width="wrap_content"
+        android:id="@+id/mealName"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/mealDayName"
-        android:layout_width="match_parent"
+        android:id="@+id/mealDate"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:textColor="@android:color/darker_gray"
+        android:textSize="16sp" />
 
     <ImageView
-        android:id="@+id/dayImage"
+        android:id="@+id/mealImage"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:scaleType="fitCenter" />
 
     <Button
-        android:id="@+id/btnClearWeekDay"
+        android:id="@+id/btnClearMeal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="#009688"
-        android:text="@string/clearweekday" />
-
+        android:text="@string/clear" />
 </LinearLayout>

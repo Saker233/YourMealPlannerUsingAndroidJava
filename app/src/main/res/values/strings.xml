@@ -35,4 +35,7 @@
     <string name="searchCategory">Search By Category</string>
     <string name="countryname">Country Name</string>
     <string name="clearweekday">Clear From Weekly Plan</string>
+    <string name="nonetwork">No Network ?</string>
+    <string name="network">No Network Connection?</string>
+    <string name="clear">Clear From Plan</string>
 </resources>

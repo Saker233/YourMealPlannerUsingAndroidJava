@@ -13,7 +13,10 @@ import com.example.yourmealplanner.Network.NetworkCallback;
 //import com.example.yourmealplanner.Repo.RepoImp;
 import com.example.yourmealplanner.database.MealsLocalDataSource;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,11 +35,20 @@ public class MealPresenterImp implements MealPresenter {
         this.local = local;
         this.remote = remote;
     }
+    @Override
+     public void assignMealToDate(Meal meal, Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        String formattedDate = sdf.format(date);
+
+        meal.setAssignedDate(formattedDate);
+
+        local.addMealToDay(meal);
+    }
 
 
     @Override
     public void addToFav(Meal meal) {
-        local.changeFavoriteState(meal);
+        local.addToFavorite(meal);
     }
 
     @Override

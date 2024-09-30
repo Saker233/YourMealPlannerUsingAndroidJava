@@ -5,6 +5,6 @@ import com.example.yourmealplanner.Home.model.Meal;
 import java.util.List;
 
 public interface ProfileView {
-    void showMealsForWeek(List<Meal> meals);
-    void showError(String message);
+    void showMealsForDate(List<Meal> meals);
+    void showNoMealsMessage();
 }
