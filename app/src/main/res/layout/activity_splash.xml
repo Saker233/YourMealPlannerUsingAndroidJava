@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cast_expanded_controller_ad_label_background_color"> <!-- Set a background color if needed -->
+    android:background="#FFF7D1"> <!-- Set a background color if needed -->
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottieAnimationView"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cast_expanded_controller_ad_label_background_color">
+    android:background="#FFF7D1">
 
     <ImageView
         android:id="@+id/imageView"
@@ -76,17 +76,21 @@
         android:layout_width="190dp"
         android:layout_height="51dp"
         android:layout_marginTop="6dp"
+        android:backgroundTint="#FFF7D1"
+        android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/checkBox"
-        app:srcCompat="@drawable/loginicon" />
+        app:srcCompat="@drawable/loginlogin" />
 
     <ImageButton
         android:id="@+id/btnRegister"
-        android:layout_width="235dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="48dp"
+        android:layout_width="278dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#FFF7D1"
+        android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cast_expanded_controller_ad_label_background_color">
+    android:background="#FFF7D1">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/favRecycler"
@@ -12,7 +12,7 @@
         android:layout_height="729dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="1dp"
+        android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:orientation="vertical"/>
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

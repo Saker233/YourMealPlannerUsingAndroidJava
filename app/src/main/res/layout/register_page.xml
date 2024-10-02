@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cast_expanded_controller_ad_label_background_color">
+    android:background="#FFF7D1">
 
     <TextView
         android:id="@+id/textView"
@@ -72,9 +72,11 @@
 
     <ImageButton
         android:id="@+id/btnRegRegister"
-        android:layout_width="253dp"
-        android:layout_height="68dp"
+        android:layout_width="234dp"
+        android:layout_height="63dp"
         android:layout_marginTop="59dp"
+        android:backgroundTint="#FFF7D1"
+        android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"

@@ -60,22 +60,35 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         }
 
         if (!NetworkConnection.isConnected(this)) {
-            btnLogin.setEnabled(false);
-            btnRegister.setEnabled(false);
+//            btnLogin.setEnabled(false);
+//            btnRegister.setEnabled(false);
             Toast.makeText(this, "No internet connection. You can only access the Guest option.", Toast.LENGTH_SHORT).show();
         }
 
-        btnLogin.setOnClickListener(v -> {
-            String email = emailInput.getText().toString().trim();
-            String password = passwordInput.getText().toString().trim();
-            presenter.login(email, password);
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!NetworkConnection.isConnected(LoginActivity.this)) {
+                    Toast.makeText(LoginActivity.this, "No internet connection. You can only access the Guest option.", Toast.LENGTH_SHORT).show();
+                } else {
+                    String email = emailInput.getText().toString().trim();
+                    String password = passwordInput.getText().toString().trim();
+                    presenter.login(email, password);
+                }
+            }
         });
+
+
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(intent);
+                if (!NetworkConnection.isConnected(LoginActivity.this)) {
+                    Toast.makeText(LoginActivity.this, "No internet connection. You can only access the Guest option.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 

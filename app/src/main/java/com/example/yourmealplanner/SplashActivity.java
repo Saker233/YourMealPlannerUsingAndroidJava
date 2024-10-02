@@ -11,7 +11,7 @@ import com.example.yourmealplanner.R;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private static final int SPLASH_DURATION = 1000;
+    private static final int SPLASH_DURATION = 5000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

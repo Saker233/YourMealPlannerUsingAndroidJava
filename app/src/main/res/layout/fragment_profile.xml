@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cast_expanded_controller_ad_label_background_color">
+    android:background="#FFD09B"
+    android:backgroundTint="#FFF7D1">
 
     <CalendarView
         android:id="@+id/calendarView"
@@ -12,6 +13,7 @@
         android:layout_height="262dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="8dp"
+        android:background="#FFF7D1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnLogOut" />
 
@@ -20,6 +22,7 @@
         android:layout_width="146dp"
         android:layout_height="85dp"
         android:layout_marginTop="16dp"
+        android:backgroundTint="#FFF7D1"
         android:scaleType="centerInside"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -31,6 +34,7 @@
         android:id="@+id/weekRecycler"
         android:layout_width="406dp"
         android:layout_height="283dp"
+        android:background="#FFF7D1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +45,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:backgroundTint="#009688"
+        android:background="@drawable/rounded_rectangle_button"
+        android:backgroundTint="#FFD09B"
         android:text="@string/shoopinglist"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

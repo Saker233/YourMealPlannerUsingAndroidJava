@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
                 bottomNavigationView.getMenu().clear();
                 bottomNavigationView.inflateMenu(R.menu.guest_menu);
                 NavigationUI.setupWithNavController(bottomNavigationView, navController);
+                navController.navigate(R.id.nav_profile);
                 Log.d("MainActivity", "NavController set up with BottomNavigationView for guest user");
             }
         } else {

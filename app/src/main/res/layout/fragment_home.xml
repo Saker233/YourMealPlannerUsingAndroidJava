@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cast_expanded_controller_ad_label_background_color"
+    android:background="#FFF7D1"
+    android:backgroundTint="#FFECC8"
     android:padding="16dp">
 
     <TextView
@@ -41,6 +42,7 @@
                 android:id="@+id/txtInsp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#FFECC8"
                 android:text="@string/MealOfTheDay"
                 android:textAlignment="center"
                 android:textSize="18sp" />
@@ -65,7 +67,6 @@
 
     </androidx.cardview.widget.CardView>
 
-    <!-- TextView above RecyclerView -->
     <TextView
         android:id="@+id/textViewCategories"
         android:layout_width="wrap_content"

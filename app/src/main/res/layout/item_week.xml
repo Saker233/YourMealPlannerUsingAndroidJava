@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/cast_expanded_controller_ad_label_background_color"
+    android:background="#FFECC8"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -31,7 +31,7 @@
         android:id="@+id/btnClearMeal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="#009688"
+        android:backgroundTint="#FFD09B"
         android:text="@string/clear"
         android:visibility="visible"
         tools:visibility="visible" />

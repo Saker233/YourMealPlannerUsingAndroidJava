@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cast_expanded_controller_ad_label_background_color">
+    android:background="#FFF7D1">
 
     <TextView
         android:id="@+id/textView6"
@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="132dp"
-        android:backgroundTint="#009688"
+        android:backgroundTint="#FFD09B"
         android:text="@string/searchcountry"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -35,8 +35,8 @@
         android:id="@+id/btnSearchIngredient"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:backgroundTint="#009688"
+        android:layout_marginTop="88dp"
+        android:backgroundTint="#FFD09B"
         android:text="@string/searchingredient"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -47,8 +47,8 @@
         android:id="@+id/btnSearchCategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:backgroundTint="#009688"
+        android:layout_marginTop="88dp"
+        android:backgroundTint="#FFD09B"
         android:text="@string/searchCategory"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

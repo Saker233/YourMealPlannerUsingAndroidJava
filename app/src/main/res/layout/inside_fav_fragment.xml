@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/cast_expanded_controller_ad_label_background_color"
+    android:background="#FFECC8"
     tools:context=".MainActivity">
 
     <ImageView
@@ -40,6 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="14dp"
+        android:backgroundTint="#FFD09B"
         android:padding="10dp"
         android:text="@string/removefavbtn"
         android:textSize="16sp"
