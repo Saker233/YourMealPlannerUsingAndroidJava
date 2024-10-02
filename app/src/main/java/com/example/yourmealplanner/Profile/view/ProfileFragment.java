@@ -171,6 +171,9 @@ public class ProfileFragment extends Fragment implements ProfileView, OnMealClic
                 .setMessage(message.toString())
                 .setPositiveButton("OK", null)
                 .create();
+        long todayInMillis = System.currentTimeMillis();
+
+        calendarView.setMinDate(todayInMillis);
 
         alertDialog.show();
     }
