@@ -39,4 +39,10 @@
     <string name="network">No Network Connection?</string>
     <string name="clear">Clear From Plan</string>
     <string name="shoopinglist">Show My Shopping List</string>
+
+    <string-array name="meal_types">
+        <item>Main Dish</item>
+        <item>Side Dish</item>
+        <item>Dessert</item>
+    </string-array>
 </resources>

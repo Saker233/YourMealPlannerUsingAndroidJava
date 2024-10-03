@@ -169,7 +169,30 @@ public class Meal {
     public String strMeasure20;
 
 
+    @ColumnInfo(name = "mealType")
+    private MealType mealType;
 
+
+    public enum MealType {
+        MAIN_DISH, SIDE_DISH, DESSERT
+    }
+
+
+    public MealType getMealType() {
+        return mealType;
+    }
+
+    public void setMealType(MealType mealType) {
+        this.mealType = mealType;
+    }
+
+    public boolean hasAssignedDate() {
+        return assignedDate != null && !assignedDate.isEmpty();
+    }
+
+    public void clearAssignedDate() {
+        this.assignedDate = null;
+    }
 
 
 

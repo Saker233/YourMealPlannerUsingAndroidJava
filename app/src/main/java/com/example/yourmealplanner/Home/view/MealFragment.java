@@ -12,6 +12,7 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -153,6 +154,7 @@ public class MealFragment extends Fragment implements MealView {
 
         View dialogView = inflater.inflate(R.layout.dialog_calendar, null);
         CalendarView calendarView = dialogView.findViewById(R.id.calendarView);
+        Spinner mealTypeSpinner = dialogView.findViewById(R.id.mealTypeSpinner);
 
         long todayInMillis = System.currentTimeMillis();
 
@@ -168,16 +170,34 @@ public class MealFragment extends Fragment implements MealView {
         });
 
         builder.setView(dialogView)
-                .setTitle("Select a date")
+                .setTitle("Select a date and meal type")
                 .setPositiveButton("OK", (dialog, which) -> {
                     if (currentMeal != null && selectedDate[0] != 0) {
                         Date selected = new Date(selectedDate[0]);
+                        String selectedMealType = mealTypeSpinner.getSelectedItem().toString();
+                        Meal.MealType mealType;
 
+                        switch (selectedMealType) {
+                            case "Main Dish":
+                                mealType = Meal.MealType.MAIN_DISH;
+                                break;
+                            case "Side Dish":
+                                mealType = Meal.MealType.SIDE_DISH;
+                                break;
+                            case "Dessert":
+                                mealType = Meal.MealType.DESSERT;
+                                break;
+                            default:
+                                mealType = Meal.MealType.MAIN_DISH;
+                                break;
+                        }
+
+                        currentMeal.setMealType(mealType);
                         mealPresenter.assignMealToDate(currentMeal, selected);
 
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
                         String formattedDate = sdf.format(selected);
-                        Toast.makeText(getContext(), currentMeal.getStrMeal() + " assigned to " + formattedDate, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), currentMeal.getStrMeal() + " assigned as " + mealType.name() + " to " + formattedDate, Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(getContext(), "Please select a valid date", Toast.LENGTH_SHORT).show();
                     }

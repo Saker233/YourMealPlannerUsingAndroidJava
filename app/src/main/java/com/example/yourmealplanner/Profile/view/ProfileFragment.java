@@ -108,6 +108,10 @@ public class ProfileFragment extends Fragment implements ProfileView, OnMealClic
 
     @Override
     public void showMealsForDate(List<Meal> meals) {
+        StringBuilder mealsDisplay = new StringBuilder();
+        for (Meal meal : meals) {
+            mealsDisplay.append(meal.getStrMeal()).append(" (").append(meal.getMealType().name()).append(")\n");
+        }
         adapter.updateMeals(meals);
     }
 
@@ -135,14 +139,23 @@ public class ProfileFragment extends Fragment implements ProfileView, OnMealClic
 
     @Override
     public void onMealDelete(Meal meal) {
-        if(meal.isFav) {
-            local.clearAssignedDate(meal);
-            presenter.getMealsForDate(selectedDate);
+        if (meal.isFav()) {
+            meal.setFav(false);
+
+            if (meal.hasAssignedDate()) {
+                local.clearAssignedDate(meal);
+            }
+
+
         } else {
-            local.deleteMeal(meal);
+            if (meal.hasAssignedDate()) {
+                local.clearAssignedDate(meal);
+            } else {
+                local.deleteMeal(meal);
+            }
         }
 
-
+//        presenter.getMealsForDate(selectedDate);
     }
 
 
@@ -171,9 +184,7 @@ public class ProfileFragment extends Fragment implements ProfileView, OnMealClic
                 .setMessage(message.toString())
                 .setPositiveButton("OK", null)
                 .create();
-        long todayInMillis = System.currentTimeMillis();
 
-        calendarView.setMinDate(todayInMillis);
 
         alertDialog.show();
     }

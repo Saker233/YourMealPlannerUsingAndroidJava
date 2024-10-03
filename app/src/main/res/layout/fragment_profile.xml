@@ -19,8 +19,8 @@
 
     <ImageButton
         android:id="@+id/btnLogOut"
-        android:layout_width="146dp"
-        android:layout_height="85dp"
+        android:layout_width="151dp"
+        android:layout_height="69dp"
         android:layout_marginTop="16dp"
         android:backgroundTint="#FFF7D1"
         android:scaleType="centerInside"
@@ -32,8 +32,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/weekRecycler"
-        android:layout_width="406dp"
-        android:layout_height="283dp"
+        android:layout_width="410dp"
+        android:layout_height="301dp"
         android:background="#FFF7D1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -44,7 +44,7 @@
         android:id="@+id/btnShowShoppingList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/rounded_rectangle_button"
         android:backgroundTint="#FFD09B"
         android:text="@string/shoopinglist"

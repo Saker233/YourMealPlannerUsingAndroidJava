@@ -16,14 +16,19 @@ public class RegisterPresenter {
     }
 
     public void register(User user) {
-        new Thread(() -> {
-            try {
-                userDatabase.userDao().insert(user);
-                view.onRegisterSuccess();
-            } catch (Exception e) {
-                view.onRegisterFailed();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    userDatabase.userDao().insert(user);
+                    view.onRegisterSuccess();
+                } catch (Exception e) {
+                    view.onRegisterFailed();
+                }
             }
         }).start();
+
     }
 }
 

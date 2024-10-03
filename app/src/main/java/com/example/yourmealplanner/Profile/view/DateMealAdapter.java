@@ -38,6 +38,7 @@ public class DateMealAdapter extends RecyclerView.Adapter<DateMealAdapter.DateMe
         Meal meal = meals.get(position);
         holder.mealName.setText(meal.getStrMeal());
         holder.mealDate.setText(meal.getAssignedDate());
+        holder.mealType.setText(meal.getMealType().toString());
 
         Glide.with(holder.itemView.getContext())
                 .load(meal.getStrMealThumb())
@@ -82,6 +83,7 @@ public class DateMealAdapter extends RecyclerView.Adapter<DateMealAdapter.DateMe
         TextView mealName, mealDate;
         ImageView mealImage;
         Button btnClearMeal;
+        TextView mealType;
 
         public DateMealViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -89,6 +91,7 @@ public class DateMealAdapter extends RecyclerView.Adapter<DateMealAdapter.DateMe
             mealDate = itemView.findViewById(R.id.mealDate);
             mealImage = itemView.findViewById(R.id.mealImage);
             btnClearMeal = itemView.findViewById(R.id.btnClearMeal);
+            mealType = itemView.findViewById(R.id.mealType);
         }
     }
 }

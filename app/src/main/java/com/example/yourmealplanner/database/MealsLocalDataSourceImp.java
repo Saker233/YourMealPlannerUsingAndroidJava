@@ -48,7 +48,11 @@ public class MealsLocalDataSourceImp implements MealsLocalDataSource {
     public void removeFromFavorite(Meal meal) {
         new Thread(() -> {
             meal.setFav(false);
-            mealDao.insertMeal(meal);
+            if (meal.hasAssignedDate()) {
+                mealDao.insertMeal(meal);
+            } else {
+                mealDao.deleteMeal(meal);
+            }
         }).start();
     }
 
@@ -56,7 +60,7 @@ public class MealsLocalDataSourceImp implements MealsLocalDataSource {
     public void clearAssignedDate(Meal meal) {
         new Thread(() -> {
             meal.setAssignedDate(null);
-            mealDao.insertMeal(meal);
+            mealDao.deleteMeal(meal);
         }).start();
 
 
