@@ -1,7 +1,9 @@
 package com.example.yourmealplanner.Home.view;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -63,7 +65,7 @@ public class MealFragment extends Fragment implements MealView {
         remoteDataSource = MealRemoteDataSource.getInstance(getContext());
         local =  MealsLocalDataSourceImp.getInstance(getContext());
 
-        mealPresenter = new MealPresenterImp(this, local, remoteDataSource);
+        mealPresenter = new MealPresenterImp(this, local, remoteDataSource, getContext());
 
 
     }
@@ -106,9 +108,13 @@ public class MealFragment extends Fragment implements MealView {
             @Override
             public void onClick(View view) {
                 if (currentMeal != null) {
-                    mealPresenter.addToFav(currentMeal);
-                    Toast.makeText(view.getContext(), "Meal added to favorites", Toast.LENGTH_SHORT).show();
-
+                    String userId = getUserId();
+                    if (userId != null) {
+                        mealPresenter.addToFav(currentMeal, userId);
+                        Toast.makeText(view.getContext(), "Meal added to favorites", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(view.getContext(), "User not logged in", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
                     Toast.makeText(view.getContext(), "No meal information available", Toast.LENGTH_SHORT).show();
                 }
@@ -235,6 +241,11 @@ public class MealFragment extends Fragment implements MealView {
     @Override
     public void showErrorMsg(String error) {
         Log.e(TAG, error);
+    }
+
+    private String getUserId() {
+        SharedPreferences preferences = requireContext().getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+        return preferences.getString("userId", null);
     }
 
 }

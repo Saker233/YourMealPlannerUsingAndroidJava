@@ -14,20 +14,17 @@ import com.example.yourmealplanner.Home.model.Meal;
 public abstract class AppDataBase extends RoomDatabase {
     private static AppDataBase instance = null;
 
-    // Abstract method to get the DAO
     public abstract MealDao getMealDao();
 
-    // Singleton pattern to get a single instance of the database
     public static synchronized AppDataBase getInstance(Context context) {
         if (instance == null) {
             instance = Room.databaseBuilder(context, AppDataBase.class, "mealsdb")
-                    .addMigrations(MIGRATION_2_3)  // Add migration for database version upgrade
+                    .addMigrations(MIGRATION_2_3)
                     .build();
         }
         return instance;
     }
 
-    // Define migration from version 1 to 2
     public static final Migration MIGRATION_2_3 = new Migration(2, 3) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {

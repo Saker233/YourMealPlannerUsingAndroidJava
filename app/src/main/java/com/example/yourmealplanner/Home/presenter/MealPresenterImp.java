@@ -1,5 +1,7 @@
 package com.example.yourmealplanner.Home.presenter;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -29,11 +31,13 @@ public class MealPresenterImp implements MealPresenter {
     MealView mealView;
     private static final String TAG = "MealPresenterImp";
     private MealsLocalDataSource localDataSource;
+    private Context context;
 
-    public MealPresenterImp(MealView mealView, MealsLocalDataSource local, MealRemoteDataSource remote) {
+    public MealPresenterImp(MealView mealView, MealsLocalDataSource local, MealRemoteDataSource remote, Context context) {
         this.mealView = mealView;
         this.local = local;
         this.remote = remote;
+        this.context = context;
     }
     @Override
      public void assignMealToDate(Meal meal, Date date, Meal.MealType mealType) {
@@ -43,12 +47,16 @@ public class MealPresenterImp implements MealPresenter {
 
         meal.setAssignedDate(formattedDate);
 
+        String userId = getUserId();
+        meal.setUserId(userId);
+
         local.addMealToDay(meal);
     }
 
 
     @Override
-    public void addToFav(Meal meal) {
+    public void addToFav(Meal meal, String userId) {
+        meal.setUserId(userId);
         local.addToFavorite(meal);
     }
 
@@ -108,4 +116,10 @@ public class MealPresenterImp implements MealPresenter {
 
         });
     }
+
+    private String getUserId() {
+        SharedPreferences preferences = context.getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+        return preferences.getString("userId", null);
+    }
+
 }

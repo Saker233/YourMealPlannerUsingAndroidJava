@@ -43,8 +43,20 @@ public class ProfilePresenter {
     }
 
 
-    public void showShoppingList() {
-        LiveData<List<Meal>> mealsLiveData = mealDao.getAllMeals();
+    public void showShoppingList(String userId) {
+        if(userId == null) {
+            LiveData<List<Meal>> mealsLiveData = mealDao.getAllMeals();
+            mealsLiveData.observe(lifecycleOwner, meals -> {
+                if (meals != null && !meals.isEmpty()) {
+                    Map<String, Integer> aggregatedIngredients = aggregateIngredients(meals);
+                    view.displayAggregatedIngredients(aggregatedIngredients);
+                } else {
+                    view.showNoMealsMessage();
+                }
+            });
+            return;
+        }
+        LiveData<List<Meal>> mealsLiveData = mealDao.getMealsForUser(userId);
         mealsLiveData.observe(lifecycleOwner, meals -> {
             if (meals != null && !meals.isEmpty()) {
                 Map<String, Integer> aggregatedIngredients = aggregateIngredients(meals);
@@ -56,26 +68,7 @@ public class ProfilePresenter {
     }
 
 
-    public void getMealsForDate(String selectedDate) {
-        Date date = parseDateString(selectedDate);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        String formattedDate = sdf.format(date);
-        LiveData<List<Meal>> mealsLiveData = mealDao.getMealsByDate(formattedDate);
-        Log.d("MealsDAO", "Fetching meals for date: " + formattedDate);
-        mealsLiveData.observe(lifecycleOwner, new Observer<List<Meal>>() {
-            @Override
-            public void onChanged(List<Meal> meals) {
-                Log.d("MealsObserver", "Meals fetched: " + (meals != null ? meals.size() : 0));
-
-                if (meals != null && !meals.isEmpty()) {
-                    view.showMealsForDate(meals);
-                } else {
-                    view.showNoMealsMessage();
-                }
-            }
-        });
-    }
 
     private Date parseDateString(String dateString) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
@@ -117,4 +110,47 @@ public class ProfilePresenter {
 
         return ingredientMap;
     }
+
+    public void getMealsForDateAndUser(String assignedDate, String userId) {
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+//        Date date = parseDateString(assignedDate);
+//        String formattedDate = sdf.format(date);
+        LiveData<List<Meal>> mealsLiveData = mealDao.getMealsByDateAndUserId(assignedDate, userId);
+        mealsLiveData.observe(lifecycleOwner, new Observer<List<Meal>>() {
+            @Override
+            public void onChanged(List<Meal> meals) {
+                Log.d("ProfilePresenter", "Meals fetched for date " + assignedDate + " and user " + userId + ": " + (meals != null ? meals.size() : 0));
+
+                // Handle the fetched meals similarly to getMealsForDate
+                if (meals != null && !meals.isEmpty()) {
+                    view.showMealsForDate(meals);
+                } else {
+                    view.showNoMealsMessage();
+                }
+            }
+        });
+    }
+
+    public void getMealsForDate(String selectedDate) {
+//        Date date = parseDateString(selectedDate);
+//
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+//        String formattedDate = sdf.format(date);
+        LiveData<List<Meal>> mealsLiveData = mealDao.getMealsByDate(selectedDate);
+        Log.d("MealsDAO", "Fetching meals for date: " + selectedDate);
+        mealsLiveData.observe(lifecycleOwner, new Observer<List<Meal>>() {
+            @Override
+            public void onChanged(List<Meal> meals) {
+                Log.d("MealsObserver", "Meals fetched: " + (meals != null ? meals.size() : 0));
+
+                if (meals != null && !meals.isEmpty()) {
+                    view.showMealsForDate(meals);
+                } else {
+                    view.showNoMealsMessage();
+                }
+            }
+        });
+    }
+
+
 }

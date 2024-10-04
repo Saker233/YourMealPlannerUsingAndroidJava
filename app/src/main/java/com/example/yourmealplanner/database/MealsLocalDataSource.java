@@ -67,4 +67,8 @@ public interface MealsLocalDataSource {
     void clearAssignedDate(Meal meal);
 
 
+    LiveData<List<Meal>> getFavoriteMealsForUser(String userId);
+
+    LiveData<List<Meal>> getMealsForUser(String userId);
+
 }

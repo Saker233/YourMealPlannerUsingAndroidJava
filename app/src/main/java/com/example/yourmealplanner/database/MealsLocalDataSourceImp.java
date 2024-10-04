@@ -1,6 +1,7 @@
 package com.example.yourmealplanner.database;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -20,11 +21,19 @@ public class MealsLocalDataSourceImp implements MealsLocalDataSource {
 
     private LiveData<List<Meal>> meals;
 
+    private String currentUserId;
+
 
     private MealsLocalDataSourceImp(Context context) {
         AppDataBase db = AppDataBase.getInstance(context.getApplicationContext());
         mealDao = db.getMealDao();
         meals = mealDao.getAllMeals();
+        currentUserId = getCurrentUserId(context);
+    }
+
+    private String getCurrentUserId(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+        return preferences.getString("current_user_id", null);
     }
 
     public static MealsLocalDataSourceImp getInstance(Context context) {
@@ -64,6 +73,16 @@ public class MealsLocalDataSourceImp implements MealsLocalDataSource {
         }).start();
 
 
+    }
+
+    @Override
+    public LiveData<List<Meal>> getFavoriteMealsForUser(String userId) {
+        return mealDao.getFavoriteMealsForUser(userId);
+    }
+
+    @Override
+    public LiveData<List<Meal>> getMealsForUser(String userId) {
+        return mealDao.getMealsForUser(userId);
     }
 
     @Override
@@ -126,7 +145,10 @@ public class MealsLocalDataSourceImp implements MealsLocalDataSource {
             @Override
             public void run() {
 
+                meal.setUserId(currentUserId);
                 mealDao.insertMeal(meal);
+
+
             }
         }).start();
     }

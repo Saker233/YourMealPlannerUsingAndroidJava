@@ -35,7 +35,7 @@ public class LoginPresenter {
             if (user != null) {
                 String hashedInputPassword = PasswordUtils.hashPassword(password, user.getSalt());
                 if (hashedInputPassword.equals(user.getHashedPassword())) {
-                    view.onLoginSuccess();
+                    view.onLoginSuccess(user.getUserId());
                 } else {
                     view.onLoginFailed();
                 }

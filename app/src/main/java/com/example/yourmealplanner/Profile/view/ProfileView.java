@@ -9,4 +9,5 @@ public interface ProfileView {
     void showMealsForDate(List<Meal> meals);
     void showNoMealsMessage();
     void displayAggregatedIngredients(Map<String, Integer> ingredientsMap);
+    void displayFavoriteMeals(List<Meal> meals);
 }

@@ -56,7 +56,6 @@ public class CategoryClient {
                 if (response.isSuccessful()) {
                     CategoryResponse categoryResponse = response.body();
                     if (categoryResponse != null && categoryResponse.categories != null) {
-                        // Use categoryResponse.categories safely here
                     } else {
                         Log.e("MealRemoteDataSource", "Categories list is null or CategoryResponse is null");
                     }

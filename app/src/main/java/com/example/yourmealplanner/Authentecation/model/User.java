@@ -13,6 +13,16 @@ public class User {
     private String hashedPassword;
     private byte[] salt;
 
+    private String userId;
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     public User(String email, String hashedPassword) {
         this.email = email;
         this.hashedPassword = hashedPassword;

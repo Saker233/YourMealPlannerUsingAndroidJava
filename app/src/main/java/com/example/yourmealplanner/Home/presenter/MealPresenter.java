@@ -11,7 +11,7 @@ public interface MealPresenter {
 
     void getMealDetails(String id);
 
-    void addToFav(Meal meal);
+    void addToFav(Meal meal, String userId);
 
     LiveData<List<Meal>> getFavorites();
 

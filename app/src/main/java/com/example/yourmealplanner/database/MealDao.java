@@ -56,4 +56,14 @@ public interface MealDao {
 
     @Query("SELECT * FROM Meal WHERE assignedDate = :selectedDate")
     LiveData<List<Meal>> getMealsByDate(String selectedDate);
+
+    @Query("SELECT * FROM meal WHERE userId = :userId AND isFav = 1")
+    LiveData<List<Meal>> getFavoriteMealsForUser(String userId);
+
+    @Query("SELECT * FROM meal WHERE userId = :userId")
+    LiveData<List<Meal>> getMealsForUser(String userId);
+
+    @Query("SELECT * FROM meal WHERE assignedDate = :assignedDate AND userId = :userId")
+    LiveData<List<Meal>> getMealsByDateAndUserId(String assignedDate, String userId);
+
 }

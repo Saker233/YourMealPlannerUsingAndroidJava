@@ -173,10 +173,25 @@ public class Meal {
     private MealType mealType;
 
 
+    @ColumnInfo(name = "userId")
+    private String userId;
+
+
+
+
+
     public enum MealType {
         MAIN_DISH, SIDE_DISH, DESSERT
     }
 
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public MealType getMealType() {
         return mealType;

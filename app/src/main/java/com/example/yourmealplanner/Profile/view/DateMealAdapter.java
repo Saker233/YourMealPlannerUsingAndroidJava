@@ -62,6 +62,7 @@ public class DateMealAdapter extends RecyclerView.Adapter<DateMealAdapter.DateMe
             @Override
             public void onClick(View view) {
                 mealClickListener.onMealDelete(meal);
+                meals.remove(position);
                 updateMeals(meals);
             }
         });

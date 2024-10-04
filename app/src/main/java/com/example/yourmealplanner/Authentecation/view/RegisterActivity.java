@@ -15,6 +15,8 @@ import com.example.yourmealplanner.R;
 import com.example.yourmealplanner.Authentecation.model.UserDatabase;
 import com.example.yourmealplanner.Authentecation.presenter.RegisterPresenter;
 
+import java.util.UUID;
+
 public class RegisterActivity extends AppCompatActivity implements RegisterView {
     private EditText edtTxtRegEmail;
     private EditText edtTxtRegPass;
@@ -45,6 +47,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView 
                 String hashedPassword = PasswordUtils.hashPassword(inputPassword, salt);
 
                 User user = new User();
+                user.setUserId(UUID.randomUUID().toString());
                 user.setEmail(inputEmail);
                 user.setHashedPassword(hashedPassword);
                 user.setSalt(salt);

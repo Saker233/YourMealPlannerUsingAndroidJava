@@ -44,11 +44,10 @@ public class MainActivity extends AppCompatActivity {
             Log.d("MainActivity", "NavHostFragment found, setting up NavController");
             navController = navHostFragment.getNavController();
 
-            // Check for navigation extra
             String navigateTo = getIntent().getStringExtra("navigate_to");
             if (navigateTo != null) {
                 if (navigateTo.equals("profile")) {
-                    navController.navigate(R.id.nav_profile); // Navigate to profile fragment
+                    navController.navigate(R.id.nav_profile);
                 }
             } else if (isUserLoggedIn()) {
                 NavigationUI.setupWithNavController(bottomNavigationView, navController);

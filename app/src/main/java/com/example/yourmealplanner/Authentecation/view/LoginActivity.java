@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
+import android.util.Log;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -139,11 +140,14 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
 
     @Override
-    public void onLoginSuccess() {
+    public void onLoginSuccess(String userId) {
         SharedPreferences preferences = getSharedPreferences("user_prefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean("isLoggedIn", true);
         editor.putBoolean("isGuest", false);
+        editor.putString("userId", userId);
+        Log.d("LoginActivity", "User ID saved: " + userId);
+
         editor.apply();
 
         Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
