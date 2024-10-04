@@ -32,14 +32,6 @@ public class HomePresenter implements NetworkCallback<Meal> {
         this.local = local;
         this.remote = remote;
 
-
-
-//        remote.getRandom(this);
-//        remote.getCategories(this);
-
-
-
-
     }
 
     public void getRandomMeal() {
@@ -63,14 +55,15 @@ public class HomePresenter implements NetworkCallback<Meal> {
 
     @Override
     public void onSuccessResult_MEAL(Meal meal) {
-        view.displayRandomMeal(meal);
-        Log.d("TAG", "displayRandomMeal: Meal Displayed - ID: " + meal.getIdMeal());
-        isMealFetching = false;
-        if (meal != null && meal.getIdMeal() != null) {
-//            remote.getDetails(meal.getIdMeal(), this);
-        } else {
-            view.showError("Meal ID is not available");
+        if (meal == null || meal.getIdMeal() == null) {
+            view.showError("Meal data is not available");
+            isMealFetching = false;
+            return;
         }
+
+        view.displayRandomMeal(meal);
+        Log.d("TAG", "Meal Displayed - ID: " + meal.getIdMeal());
+        isMealFetching = false;
     }
 
     @Override

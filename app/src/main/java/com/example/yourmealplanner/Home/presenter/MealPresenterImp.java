@@ -36,7 +36,8 @@ public class MealPresenterImp implements MealPresenter {
         this.remote = remote;
     }
     @Override
-     public void assignMealToDate(Meal meal, Date date) {
+     public void assignMealToDate(Meal meal, Date date, Meal.MealType mealType) {
+        meal.setMealType(mealType);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         String formattedDate = sdf.format(date);
 

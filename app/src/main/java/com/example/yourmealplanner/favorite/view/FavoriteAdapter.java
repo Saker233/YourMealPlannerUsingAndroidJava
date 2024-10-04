@@ -60,11 +60,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
                     }
                 }
             });
-//            itemView.setOnClickListener(v -> {
-//                if (listener != null) {
-//                    listener.onFavMealClick(values.get(getAdapterPosition()));
-//                }
-//            });
+
 
         }
     }
@@ -98,6 +94,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
                 if (listener != null) {
                     Meal mealToRemove = values.get(position);
                     listener.onFavoriteRemoved(mealToRemove);
+                    updateMeals(values);
                 } else {
                     Log.e("MealAdapter", "Listener is null");
                 }
@@ -107,6 +104,12 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     @Override
     public int getItemCount() {
         return values.size();
+    }
+
+    public void updateMeals(List<Meal> newMeals) {
+        this.values.clear();
+        this.values.addAll(newMeals);
+        notifyDataSetChanged();
     }
 
 

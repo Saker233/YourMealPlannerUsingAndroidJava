@@ -106,11 +106,8 @@ public class MealFragment extends Fragment implements MealView {
             @Override
             public void onClick(View view) {
                 if (currentMeal != null) {
-
-
-                        mealPresenter.addToFav(currentMeal);
-//                        btnFav.setText("Remove from Favorites");
-                        Toast.makeText(view.getContext(), "Meal added to favorites", Toast.LENGTH_SHORT).show();
+                    mealPresenter.addToFav(currentMeal);
+                    Toast.makeText(view.getContext(), "Meal added to favorites", Toast.LENGTH_SHORT).show();
 
                 } else {
                     Toast.makeText(view.getContext(), "No meal information available", Toast.LENGTH_SHORT).show();
@@ -127,25 +124,6 @@ public class MealFragment extends Fragment implements MealView {
             }
         });
 
-    }
-
-
-
-
-    private void showMealSelectionDialog() {
-        String[] weekdays = {"Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Select a weekday")
-                .setItems(weekdays, (dialog, which) -> {
-                    String selectedWeekday = weekdays[which];
-                    if (currentMeal != null) {
-                        mealPresenter.assignMealToWeekday(currentMeal, selectedWeekday);
-                        Toast.makeText(getContext(), currentMeal.getStrMeal() + " assigned to " + selectedWeekday, Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .setNegativeButton("Cancel", null)
-                .show();
     }
 
     private void showCalendarDialog() {
@@ -192,8 +170,8 @@ public class MealFragment extends Fragment implements MealView {
                                 break;
                         }
 
-                        currentMeal.setMealType(mealType);
-                        mealPresenter.assignMealToDate(currentMeal, selected);
+
+                        mealPresenter.assignMealToDate(currentMeal, selected, mealType);
 
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
                         String formattedDate = sdf.format(selected);
@@ -212,7 +190,6 @@ public class MealFragment extends Fragment implements MealView {
         currentMeal = meal;
         mealName.setText(meal.getStrMeal());
         Glide.with(requireContext()).load(meal.getStrMealThumb()).into(mealImage);
-//        txtIngredient.setText(meal.getStrIngredients());
         txtSteps.setText((meal.getStrInstructions()));
 
         StringBuilder ingredientsWithMeasurements = new StringBuilder();
@@ -260,14 +237,4 @@ public class MealFragment extends Fragment implements MealView {
         Log.e(TAG, error);
     }
 
-    private boolean isMealFavorite(Meal meal) {
-        if (favoriteMeals != null) {
-            for (Meal favorite : favoriteMeals) {
-                if (favorite.getIdMeal().equals(meal.getIdMeal())) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
 }

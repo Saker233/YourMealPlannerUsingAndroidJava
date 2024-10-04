@@ -31,9 +31,6 @@ public class CountryFragment extends Fragment implements SearchViews, OnCountryC
     private SearchPresenter searchPresenter;
     private CountryAdapter countryAdapter;
     private MealRemoteDataSource remote;
-    private List<Meal> meals;
-    private MealAdapter mealAdapter;
-    private RecyclerView recyclerViewMeals;
     private IngredientAdapter ingredientAdapter;
 
 

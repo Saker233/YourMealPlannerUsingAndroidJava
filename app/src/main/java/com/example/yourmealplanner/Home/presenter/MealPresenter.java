@@ -20,6 +20,6 @@ public interface MealPresenter {
 
     LiveData<List<Meal>> getMealsForWeekday(String weekday);
 
-    void assignMealToDate(Meal meal, Date date);
+    void assignMealToDate(Meal meal, Date date, Meal.MealType mealType);
 
 }

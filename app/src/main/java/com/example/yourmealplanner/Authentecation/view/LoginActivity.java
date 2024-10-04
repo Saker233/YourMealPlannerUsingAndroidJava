@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.provider.Settings;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -21,6 +22,7 @@ import com.example.yourmealplanner.Network.NetworkConnection;
 import com.example.yourmealplanner.R;
 import com.example.yourmealplanner.Authentecation.model.UserDatabase;
 import com.example.yourmealplanner.Authentecation.presenter.LoginPresenter;
+import com.google.android.material.snackbar.Snackbar;
 
 public class LoginActivity extends AppCompatActivity implements LoginView {
     private EditText emailInput;
@@ -60,15 +62,16 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         }
 
         if (!NetworkConnection.isConnected(this)) {
-//            btnLogin.setEnabled(false);
-//            btnRegister.setEnabled(false);
-            Toast.makeText(this, "No internet connection. You can only access the Guest option.", Toast.LENGTH_SHORT).show();
+
+
+            showNoConnectionSnackbar();
         }
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!NetworkConnection.isConnected(LoginActivity.this)) {
+                    showNoConnectionSnackbar();
                     Toast.makeText(LoginActivity.this, "No internet connection. You can only access the Guest option.", Toast.LENGTH_SHORT).show();
                 } else {
                     String email = emailInput.getText().toString().trim();
@@ -84,6 +87,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
             @Override
             public void onClick(View v) {
                 if (!NetworkConnection.isConnected(LoginActivity.this)) {
+                    showNoConnectionSnackbar();
                     Toast.makeText(LoginActivity.this, "No internet connection. You can only access the Guest option.", Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
@@ -115,6 +119,23 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         boolean isLoggedIn = preferences.getBoolean("isLoggedIn", false);
         return isLoggedIn || isGuest;
     }
+
+
+    private void showNoConnectionSnackbar() {
+        View rootView = findViewById(android.R.id.content);
+
+        Snackbar snackbar = Snackbar.make(rootView,
+                        "No internet connection. You can only access the Guest option.", Snackbar.LENGTH_INDEFINITE)
+                .setAction("Settings", v -> {
+                    startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                })
+                .setActionTextColor(getResources().getColor(R.color.white));
+
+        snackbar.setAction("Dismiss", v -> snackbar.dismiss());
+
+        snackbar.show();
+    }
+
 
 
     @Override

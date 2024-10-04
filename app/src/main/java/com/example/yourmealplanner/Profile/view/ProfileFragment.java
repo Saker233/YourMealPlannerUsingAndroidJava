@@ -55,7 +55,6 @@ public class ProfileFragment extends Fragment implements ProfileView, OnMealClic
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
     }
 
     @Nullable
@@ -99,6 +98,7 @@ public class ProfileFragment extends Fragment implements ProfileView, OnMealClic
                 presenter.showShoppingList();
             }
         });
+
         return view;
     }
 

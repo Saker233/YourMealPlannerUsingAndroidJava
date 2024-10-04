@@ -25,7 +25,7 @@ public class SearchPresenter {
     }
 
     public void loadCountries() {
-        mealRemoteDataSource.getAreas(new NetworkCallback<List<Area>>() {  // Change to List<Area>
+        mealRemoteDataSource.getAreas(new NetworkCallback<List<Area>>() {
             @Override
             public void onSuccessResult_MEAL(Meal meal) {
             }

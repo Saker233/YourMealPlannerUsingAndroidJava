@@ -38,7 +38,7 @@ public class DateMealAdapter extends RecyclerView.Adapter<DateMealAdapter.DateMe
         Meal meal = meals.get(position);
         holder.mealName.setText(meal.getStrMeal());
         holder.mealDate.setText(meal.getAssignedDate());
-        holder.mealType.setText(meal.getMealType().toString());
+        holder.mealType.setText(capitalizeWords(meal.getMealType().toString().replace("_", " ")));
 
         Glide.with(holder.itemView.getContext())
                 .load(meal.getStrMealThumb())
@@ -62,10 +62,22 @@ public class DateMealAdapter extends RecyclerView.Adapter<DateMealAdapter.DateMe
             @Override
             public void onClick(View view) {
                 mealClickListener.onMealDelete(meal);
+                updateMeals(meals);
             }
         });
 
 
+    }
+
+    public static String capitalizeWords(String str) {
+        String[] words = str.toLowerCase().split(" ");
+        StringBuilder capitalizedString = new StringBuilder();
+        for (String word : words) {
+            capitalizedString.append(word.substring(0, 1).toUpperCase())
+                    .append(word.substring(1))
+                    .append(" ");
+        }
+        return capitalizedString.toString().trim();
     }
 
     public void updateMeals(List<Meal> newMeals) {
