@@ -2,7 +2,6 @@ package com.example.yourmealplanner.favorite.presenter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
@@ -20,31 +19,32 @@ import java.util.List;
 public class FavoritePresenter {
     private FavoriteView view;
     private MealDao mealDao;
-    private MealsLocalDataSource local;
+    private MealsLocalDataSource repo;
     private RepositoryImpl repository;
     private Context context;
 
     public FavoritePresenter(FavoriteView view, Context context) {
         this.view = view;
         this.mealDao = AppDataBase.getInstance(context).getMealDao();
-        this.local = MealsLocalDataSourceImp.getInstance(context);
+        this.repo = MealsLocalDataSourceImp.getInstance(context);
         this.context = context;
+        this.repository = RepositoryImpl.getInstance(context);
 
 
     }
 
-    public void removeProductFromFavorites(Meal meal) {
-        if(meal != null) {
-            local.deleteMeal(meal);
-        }
-
-
-    }
+//    public void removeProductFromFavorites(Meal meal) {
+//        if(meal != null) {
+//            repository.deleteMeal(meal);
+//        }
+//
+//
+//    }
 
     public void loadFavorites() {
         String userId = getUserId();
         if (userId == null) {
-            LiveData<List<Meal>> favorites = local.getFavorites();
+            LiveData<List<Meal>> favorites = repo.getFavorites();
             favorites.observeForever(new Observer<List<Meal>>() {
                 @Override
                 public void onChanged(List<Meal> meals) {
@@ -58,7 +58,7 @@ public class FavoritePresenter {
 
             return;
         }
-        LiveData<List<Meal>> favorites = local.getFavoriteMealsForUser(userId);
+        LiveData<List<Meal>> favorites = repo.getFavoriteMealsForUser(userId);
         favorites.observeForever(new Observer<List<Meal>>() {
             @Override
             public void onChanged(List<Meal> meals) {
@@ -72,7 +72,7 @@ public class FavoritePresenter {
     }
 
     public void removeFavorite(Meal meal) {
-        local.removeFromFavorite(meal);
+        repository.removeFromFavorite(meal);
         view.showError("Meal removed from favorites");
     }
 

@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="14dp"
-        android:backgroundTint="#FFD09B"
+        android:backgroundTint="#3F51B5"
         android:padding="10dp"
         android:text="@string/removefavbtn"
         android:textSize="16sp"

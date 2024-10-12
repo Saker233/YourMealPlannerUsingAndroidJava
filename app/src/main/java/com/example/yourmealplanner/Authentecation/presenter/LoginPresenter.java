@@ -13,14 +13,11 @@ import com.example.yourmealplanner.Authentecation.model.User;
 import com.example.yourmealplanner.Authentecation.model.UserDatabase;
 import com.example.yourmealplanner.Authentecation.view.LoginView;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class LoginPresenter {
     private final LoginView view;
     private final UserDatabase userDatabase;
     private Context context;
-    private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     public LoginPresenter(LoginView view, UserDatabase userDatabase, Context context) {
         this.view = view;
